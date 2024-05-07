@@ -1,10 +1,10 @@
 package nl.novi.amazeing.models.position;
 
-public enum MazeTileDiscoveryEffects {
+public enum PositionMetaData {
     ISACCESSABLE,
     ISTARGET,
     ISDEADLY,
-    ISBONUS;
+    ISBONUS, NOENTRY;
  }
 
 

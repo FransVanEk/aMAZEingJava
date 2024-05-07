@@ -5,7 +5,7 @@ import nl.novi.amazeing.helpers.DrawHelper;
 import nl.novi.amazeing.models.Maze;
 import nl.novi.amazeing.models.MazeElement;
 import nl.novi.amazeing.models.position.MazePosition;
-import nl.novi.amazeing.models.position.MazeTileDiscoveryEffects;
+import nl.novi.amazeing.models.position.PositionMetaData;
 
 import javax.swing.*;
 import java.awt.*;
@@ -91,16 +91,16 @@ public class GraphicsRunner extends JPanel {
         g2d.drawImage(mazeImage, 0, 0, null);
         drawGraphicsAtPosition(g2d, graphicsPlayer, (int) ((newPosition.getPositionX() + 0.5) * blockSize), (int) ((newPosition.getPositionY() + 0.5) * blockSize), (int) newPosition.getOrientationDegrees());
 
-        var effects = maze.getEffectsFor(newPosition.getPositionX(),newPosition.getPositionY());
-        if(effects.contains(MazeTileDiscoveryEffects.ISTARGET)) {
+        var effects = maze.getMetaDataFor(newPosition);
+        if(effects.contains(PositionMetaData.ISTARGET)) {
             drawGraphicsAtPosition(g2d, new SmileyFace(), (int) ((newPosition.getPositionX() + 0.5) * blockSize), (int) ((newPosition.getPositionY() + 0.5) * blockSize), (int) newPosition.getOrientationDegrees());
         }
-        if(effects.contains(MazeTileDiscoveryEffects.ISBONUS)) {
+        if(effects.contains(PositionMetaData.ISBONUS)) {
             maze.RemoveElementsAt(newPosition.getPositionX(),newPosition.getPositionY());
             mazeImage= null;
         }
 
-        if(effects.contains(MazeTileDiscoveryEffects.ISDEADLY)) {
+        if(effects.contains(PositionMetaData.ISDEADLY)) {
             drawGraphicsAtPosition(g2d, new SadFace(), (int) ((newPosition.getPositionX() + 0.5) * blockSize), (int) ((newPosition.getPositionY() + 0.5) * blockSize), (int) newPosition.getOrientationDegrees());
             throw new SteppedOnDeadlyElementException("Oooops");
         }

@@ -3,7 +3,10 @@ package nl.novi.amazeing.models;
 import nl.novi.amazeing.graphics.GraphicsRunner;
 import nl.novi.amazeing.graphics.Triangle;
 import nl.novi.amazeing.models.position.MazePosition;
+import nl.novi.amazeing.models.position.PositionMetaData;
 import nl.novi.amazeing.models.position.Orientation;
+
+import java.util.Collection;
 
 public class Player  {
     private final Triangle graphicsPlayer;
@@ -57,5 +60,19 @@ public class Player  {
 
     public void showMaze() {
        updateGraphics(mazePosition,mazePosition);
+    }
+
+    public boolean canMoveForward() {
+        return !getEffectsForMovingForward()
+                .contains(PositionMetaData.NOENTRY);
+    }
+
+    public Collection<PositionMetaData> getEffectsForMovingForward() {
+        var newPosition = mazePosition.getPositionForCurrentOrientation(+1);
+        return maze.getMetaDataFor(newPosition);
+    }
+
+    public MazePosition getPosition() {
+        return this.mazePosition;
     }
 }

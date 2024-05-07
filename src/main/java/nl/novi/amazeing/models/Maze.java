@@ -1,9 +1,8 @@
 package nl.novi.amazeing.models;
 
 import nl.novi.amazeing.graphics.Drawable;
-import nl.novi.amazeing.graphics.OpenDoor;
 import nl.novi.amazeing.models.position.MazePosition;
-import nl.novi.amazeing.models.position.MazeTileDiscoveryEffects;
+import nl.novi.amazeing.models.position.PositionMetaData;
 import nl.novi.amazeing.models.position.Orientation;
 
 import java.util.*;
@@ -33,7 +32,7 @@ public class Maze {
         return sizeY;
     }
 
-    public void addMazeElements(int x, int y, Drawable drawableItem, MazeTileDiscoveryEffects... effects) {
+    public void addMazeElements(int x, int y, Drawable drawableItem, PositionMetaData... effects) {
         mazeElements.add(new MazeElement(new MazePosition(x, y, Orientation.FacingRight), drawableItem, effects));
     }
 
@@ -41,15 +40,19 @@ public class Maze {
         mazeElements.add(mazeElement);
     }
 
-    public Set<MazeTileDiscoveryEffects> getEffectsFor(int x, int y) {
-        Set<MazeTileDiscoveryEffects> uniqueEffects = new HashSet<>();
+    public Set<PositionMetaData> getMetaDataFor(int x, int y) {
+        Set<PositionMetaData> uniqueEffects = new HashSet<>();
 
         for (MazeElement element : mazeElements) {
             if (element.getPosition().isPosition(x, y)) {
-                uniqueEffects.addAll(element.getEffects());
+                uniqueEffects.addAll(element.getPositionMetaData());
             }
         }
         return uniqueEffects;
+    }
+
+    public Set<PositionMetaData> getMetaDataFor(MazePosition position) {
+        return getMetaDataFor(position.getPositionX(),position.getPositionY());
     }
 
     public void RemoveElementsAt(int x, int y) {
@@ -61,5 +64,6 @@ public class Maze {
 
         }
     }
+
 }
 

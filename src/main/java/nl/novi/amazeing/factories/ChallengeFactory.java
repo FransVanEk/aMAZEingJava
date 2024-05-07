@@ -12,13 +12,15 @@ public class ChallengeFactory {
         var maze = new Maze(5,5);
         var player = new Player(new Triangle(), maze, graphicsRunnner);
         player.setPosition(0,0, Orientation.FacingRight);
-        maze.addMazeElements(MazeElementsFactory.OpenDoorAsTarget(2,2));
-        maze.addMazeElements(MazeElementsFactory.CrossAsDeadly(1,1));
-        maze.addMazeElements(MazeElementsFactory.CrossAsDeadly(4,1));
-        maze.addMazeElements(MazeElementsFactory.CrossAsDeadly(1,4));
+        maze.addMazeElements(MazeElementsFactory.OpenDoorAsTarget(1,2));
+        maze.addMazeElements(MazeElementsFactory.CrossAsNoEntry(1,1));
+        maze.addMazeElements(MazeElementsFactory.CrossAsNoEntry(1,3));
+        maze.addMazeElements(MazeElementsFactory.CrossAsNoEntry(4,1));
+        maze.addMazeElements(MazeElementsFactory.CrossAsNoEntry(2,2));
+        maze.addMazeElements(MazeElementsFactory.CrossAsNoEntry(3,3));
         maze.addMazeElements(MazeElementsFactory.PlusAsBonus(1,0));
         maze.addMazeElements(MazeElementsFactory.PlusAsBonus(2,1));
-
+        maze.addMazeElements(MazeElementsFactory.NoEntrySign(0,1));
         return new Challenge(maze, player);
     }
 }

@@ -35,6 +35,15 @@ public class MazePosition {
         }
         return this;
     }
+    public MazePosition getPositionForCurrentOrientation(int stepsize){
+        switch (orientation) {
+            case FacingUp ->  {return new MazePosition(positionX,positionY - stepsize, orientation);}
+            case FacingDown ->  {return new MazePosition(positionX,positionY + stepsize, orientation);}
+            case FacingLeft ->  {return new MazePosition(positionX-stepsize,positionY, orientation);}
+            case FacingRight ->  {return new MazePosition(positionX+stepsize,positionY, orientation);}
+        }
+        return this;
+    }
 
     public MazePosition clone() {
         return new MazePosition(positionX, positionY, orientation);
@@ -70,5 +79,9 @@ public class MazePosition {
 
     public boolean isPosition(int x, int y) {
         return (x== this.getPositionX() && y == this.getPositionY());
+    }
+
+    public int getCost() {
+        return 1;
     }
 }
