@@ -9,7 +9,7 @@ import nl.novi.amazeing.navigators.Instruction;
 public class AMAZEingApp {
 
     public static void main(String[] args) {
-        var challenge = ChallengeFactory.constructChallenge1();
+        var challenge = ChallengeFactory.constructRandomChallenge();
         var instructions = new BreadthFirstSearchNavigator(challenge.getMaze()).findPathToTarget(0,0);
         var player = challenge.getPlayer();
         player.showMaze();

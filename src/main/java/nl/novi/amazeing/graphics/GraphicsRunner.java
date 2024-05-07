@@ -81,7 +81,7 @@ public class GraphicsRunner extends JPanel {
 
             // Sleep for a short duration to visualize the movement
             try {
-                Thread.sleep(20); // Adjust sleep duration as needed
+                Thread.sleep(0); // Adjust sleep duration as needed
             } catch (InterruptedException ex) {
                 ex.printStackTrace();
             }

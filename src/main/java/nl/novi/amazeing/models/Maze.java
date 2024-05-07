@@ -65,5 +65,13 @@ public class Maze {
         }
     }
 
+    public boolean isEmptySpot(int x, int y) {
+        for (MazeElement element : mazeElements) {
+            if (element.getPosition().isPosition(x, y)) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
 
