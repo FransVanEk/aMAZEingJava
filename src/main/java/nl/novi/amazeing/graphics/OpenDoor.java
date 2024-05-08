@@ -13,8 +13,8 @@ public class OpenDoor implements Drawable {
     @Override
     public void draw(Graphics2D g2d, GraphicsPosition position) {
         // Calculate the scaled dimensions of the door
-        int scaledDoorWidth = (int) (this.doorWidth * position.getElementFactor());
-        int scaledDoorHeight = (int) (this.doorHeight * position.getElementFactor());
+        int scaledDoorWidth = (int) (this.doorWidth * position.elementFactor());
+        int scaledDoorHeight = (int) (this.doorHeight * position.elementFactor());
 
         // Calculate points for the door
         int[][] doorPoints = {
@@ -26,9 +26,9 @@ public class OpenDoor implements Drawable {
 
         // Rotate and translate points
         for (int i = 0; i < doorPoints.length; i++) {
-            var rotatedPoint = DrawHelper.rotatePointFromOrigin(doorPoints[i][0], doorPoints[i][1], position.getAngle());
-            doorPoints[i][0] = rotatedPoint.getX() + position.getX();
-            doorPoints[i][1] = rotatedPoint.getY() + position.getY();
+            var rotatedPoint = DrawHelper.rotatePointFromOrigin(doorPoints[i][0], doorPoints[i][1], position.angle());
+            doorPoints[i][0] = rotatedPoint.getX() + position.x();
+            doorPoints[i][1] = rotatedPoint.getY() + position.y();
         }
 
         // Draw the door
@@ -43,7 +43,7 @@ public class OpenDoor implements Drawable {
                 new int[]{doorPoints[0][1], doorPoints[1][1], doorPoints[2][1], doorPoints[3][1]}, 4);
 
         // Calculate and draw the open part of the door
-        var openDoorEnd = DrawHelper.rotatePointFromOrigin(scaledDoorWidth / 2, 0, position.getAngle() - doorOpenAngle);
+        var openDoorEnd = DrawHelper.rotatePointFromOrigin(scaledDoorWidth / 2, 0, position.angle() - doorOpenAngle);
 
         g2d.drawLine(doorPoints[1][0], doorPoints[1][1], doorPoints[1][0]+ openDoorEnd.getX(), doorPoints[1][1] + openDoorEnd.getY());
         g2d.drawLine(doorPoints[1][0]+openDoorEnd.getX(), doorPoints[1][1]+openDoorEnd.getY(), doorPoints[1][0]+openDoorEnd.getX(), doorPoints[2][1]);

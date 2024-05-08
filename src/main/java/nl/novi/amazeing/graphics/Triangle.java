@@ -11,8 +11,8 @@ public class Triangle implements Drawable {
 
     public void draw(Graphics2D g2d, GraphicsPosition position) {
 
-        var height =(int) (this.height * position.getElementFactor());
-        var baseLength = (int) (this.baseLength * position.getElementFactor());
+        var height =(int) (this.height * position.elementFactor());
+        var baseLength = (int) (this.baseLength * position.elementFactor());
 
         int[][] points = {
                 {0, -height / 2}, // Top point
@@ -21,9 +21,9 @@ public class Triangle implements Drawable {
         };
 
         for (int i = 0; i < points.length; i++) {
-            var rotatedPoint = DrawHelper.rotatePointFromOrigin(points[i][0], points[i][1], position.getAngle());
-            points[i][0] = rotatedPoint.getX() + position.getX();
-            points[i][1] = rotatedPoint.getY() + position.getY();
+            var rotatedPoint = DrawHelper.rotatePointFromOrigin(points[i][0], points[i][1], position.angle());
+            points[i][0] = rotatedPoint.getX() + position.x();
+            points[i][1] = rotatedPoint.getY() + position.y();
         }
         g2d.setColor(Color.BLUE);
 

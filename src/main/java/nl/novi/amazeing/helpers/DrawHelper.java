@@ -3,6 +3,7 @@ package nl.novi.amazeing.helpers;
 import nl.novi.amazeing.models.position.GraphicsPoint;
 
 public class DrawHelper {
+
     public static GraphicsPoint rotatePointFromOrigin(int x, int y, double angle) {
         double rad = Math.toRadians(angle);
         int rotatedX = (int) (x * Math.cos(rad) - y * Math.sin(rad));
@@ -11,27 +12,28 @@ public class DrawHelper {
     }
 
     public static double getRotationStepAngle(int currentAngle, int targetAngle, int steps) {
-        // Om ervoor te zorgen dat beide hoeken zich binnen 0 en 359 graden bevinden
         currentAngle = normalizeAngle(currentAngle);
         targetAngle = normalizeAngle(targetAngle);
-
-        // Bepaal het verschil tussen de doelhoek en de huidige hoek
-        int angleDifference = targetAngle - currentAngle;
-
-        // Als het verschil groter is dan 180 graden, draai dan in de tegenovergestelde richting
-        if (Math.abs(angleDifference) > 180) {
-            if (angleDifference > 0) {
-                angleDifference -= 360;
-            } else {
-                angleDifference += 360;
-            }
-        }
-
-        // Bereken de stapgrootte
+        int angleDifference = calculateAngleDifference(currentAngle, targetAngle);
         return (double) angleDifference / steps;
     }
 
-    // Hulpmethode om ervoor te zorgen dat de hoek binnen 0 en 359 graden ligt
+    private static int calculateAngleDifference(int currentAngle, int targetAngle) {
+        int angleDifference = targetAngle - currentAngle;
+        if (Math.abs(angleDifference) > 180) {
+            angleDifference = adjustLargeAngleDifference(angleDifference);
+        }
+        return angleDifference;
+    }
+
+    private static int adjustLargeAngleDifference(int angleDifference) {
+        if (angleDifference > 0) {
+            return angleDifference - 360;
+        } else {
+            return angleDifference + 360;
+        }
+    }
+
     private static int normalizeAngle(int angle) {
         angle %= 360;
         if (angle < 0) {

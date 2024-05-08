@@ -1,4 +1,5 @@
 package nl.novi.amazeing.navigators;
+
 import nl.novi.amazeing.models.Maze;
 import nl.novi.amazeing.models.position.MazePosition;
 import nl.novi.amazeing.models.position.Orientation;
@@ -6,20 +7,34 @@ import nl.novi.amazeing.models.position.PositionMetaData;
 
 import java.util.*;
 
-public class  BreadthFirstSearchNavigator {
-    private Maze maze;
+public class BreadthFirstSearchNavigator {
+    private static final int[] DX = {1, -1, 0, 0};
+    private static final int[] DY = {0, 0, 1, -1};
+    private final Maze maze;
 
     public BreadthFirstSearchNavigator(Maze maze) {
         this.maze = maze;
     }
 
     public List<Instruction> findPathToTarget(int startX, int startY) {
-        int[][] distances = new int[maze.getSizeX()][maze.getSizeY()];
-        MazePosition targetPosition = null;
-        int x=0;
-        int y=0;
-        for (int[] row : distances) Arrays.fill(row, -1);  // Initialize with -1, meaning unvisited
+        int[][] distances = initializeDistances();
+        MazePosition targetPosition = performBreadthFirstSearch(distances, startX, startY);
+        if (targetPosition == null) {
+            return Collections.emptyList();
+        }
+        List<MazePosition> path = reconstructPath(distances, targetPosition);
+        return convertToInstructions(path);
+    }
 
+    private int[][] initializeDistances() {
+        int[][] distances = new int[maze.getSizeX()][maze.getSizeY()];
+        for (int[] row : distances) {
+            Arrays.fill(row, -1); // Initialize with -1 (unvisited)
+        }
+        return distances;
+    }
+
+    private MazePosition performBreadthFirstSearch(int[][] distances, int startX, int startY) {
         Queue<MazePosition> queue = new LinkedList<>();
         MazePosition start = new MazePosition(startX, startY, Orientation.FacingRight);
         queue.add(start);
@@ -27,110 +42,107 @@ public class  BreadthFirstSearchNavigator {
 
         while (!queue.isEmpty()) {
             MazePosition current = queue.poll();
-            x = current.getPositionX();
-            y = current.getPositionY();
-            int currentDistance = distances[x][y];
-
-            if (maze.getMetaDataFor(x,y).contains(PositionMetaData.ISTARGET)) {
-                distances[x][y] = currentDistance ;
-                targetPosition = new MazePosition(x,y,Orientation.FacingRight);
-                break;  // Target found
+            int x = current.getPositionX();
+            int y = current.getPositionY();
+            if (maze.getMetaDataFor(x, y).contains(PositionMetaData.IS_TARGET)) {
+                return new MazePosition(x, y, Orientation.FacingRight);
             }
-
-            int[] dx = {1, -1, 0, 0};
-            int[] dy = {0, 0, 1, -1};
-
-            for (int i = 0; i < 4; i++) {
-                int nx = x + dx[i];
-                int ny = y + dy[i];
-
-                if (nx >= 0 && nx < maze.getSizeX() && ny >= 0 && ny < maze.getSizeY() && distances[nx][ny] == -1) {
-                    Set<PositionMetaData> effects = maze.getMetaDataFor(nx, ny);
-                    if (!effects.contains(PositionMetaData.NOENTRY)) {
-                        distances[nx][ny] = currentDistance + 1;
-                        //we coudl do a check here if it is teh target and clear out the queue or do a break but that needs to be a double one
-                        queue.add(new MazePosition(nx, ny, Orientation.FacingRight));  // Orientation can be adjusted based on actual usage
-                    }
-                }
-            }
+            addNeighborsToQueue(queue, distances, x, y);
         }
-
-        return  ConvertToInstructions(reconstructPath(distances,x,y));
+        return null; // Target not found
     }
 
-        private List<Instruction> ConvertToInstructions(List<MazePosition> mazePositions) {
-            List<Instruction> instructions = new ArrayList<>();
-
-            if (mazePositions.size() < 2) {
-                return instructions; // No movement needed if there's one or zero positions.
+    private void addNeighborsToQueue(Queue<MazePosition> queue, int[][] distances, int x, int y) {
+        for (int i = 0; i < 4; i++) {
+            int nx = x + DX[i];
+            int ny = y + DY[i];
+            if (isUnvisitedPosition(nx, ny, distances) && canEnter(nx, ny)) {
+                distances[nx][ny] = distances[x][y] + 1;
+                queue.add(new MazePosition(nx, ny, Orientation.FacingRight));
             }
-
-            Orientation currentOrientation = Orientation.FacingRight; // Start facing right.
-
-            for (int i = 0; i < mazePositions.size() - 1; i++) {
-                MazePosition current = mazePositions.get(i);
-                MazePosition next = mazePositions.get(i + 1);
-
-                // Determine the needed orientation to reach the next position
-                Orientation requiredOrientation;
-                if (current.getPositionX() == next.getPositionX()) {
-                    if (next.getPositionY() > current.getPositionY()) {
-                        requiredOrientation = Orientation.FacingDown;
-                    } else {
-                        requiredOrientation = Orientation.FacingUp;
-                    }
-                } else {
-                    if (next.getPositionX() > current.getPositionX()) {
-                        requiredOrientation = Orientation.FacingRight;
-                    } else {
-                        requiredOrientation = Orientation.FacingLeft;
-                    }
-                }
-
-                // Add turn instructions if needed
-                while (currentOrientation != requiredOrientation) {
-                    if ((currentOrientation == Orientation.FacingRight && requiredOrientation == Orientation.FacingDown) ||
-                            (currentOrientation == Orientation.FacingDown && requiredOrientation == Orientation.FacingLeft) ||
-                            (currentOrientation == Orientation.FacingLeft && requiredOrientation == Orientation.FacingUp) ||
-                            (currentOrientation == Orientation.FacingUp && requiredOrientation == Orientation.FacingRight)) {
-                        instructions.add(Instruction.TURNRIGHT);
-                        currentOrientation = currentOrientation.turnRight();
-                    } else {
-                        instructions.add(Instruction.TURNLEFT);
-                        currentOrientation = currentOrientation.turnLeft();
-                    }
-                }
-
-                // Finally, move forward
-                instructions.add(Instruction.FORWARD);
-            }
-
-            return instructions;
         }
+    }
 
-    private List<MazePosition> reconstructPath(int[][] distances, int targetX, int targetY) {
+    private boolean isUnvisitedPosition(int x, int y, int[][] distances) {
+        return x >= 0 && x < maze.getSizeX() && y >= 0 && y < maze.getSizeY() && distances[x][y] == -1;
+    }
+
+    private boolean canEnter(int x, int y) {
+        return !maze.getMetaDataFor(x, y).contains(PositionMetaData.NO_ENTRY);
+    }
+
+    private List<Instruction> convertToInstructions(List<MazePosition> path) {
+        List<Instruction> instructions = new ArrayList<>();
+        if (path.size() < 2) return instructions;
+
+        Orientation currentOrientation = Orientation.FacingRight;
+        for (int i = 0; i < path.size() - 1; i++) {
+            MazePosition current = path.get(i);
+            MazePosition next = path.get(i + 1);
+            Orientation requiredOrientation = determineRequiredOrientation(current, next);
+            instructions.addAll(generateTurnInstructions(currentOrientation, requiredOrientation));
+            instructions.add(Instruction.FORWARD);
+            currentOrientation = requiredOrientation;
+        }
+        return instructions;
+    }
+
+    private Orientation determineRequiredOrientation(MazePosition current, MazePosition next) {
+        if (current.getPositionX() == next.getPositionX()) {
+            return next.getPositionY() > current.getPositionY() ? Orientation.FacingDown : Orientation.FacingUp;
+        }
+        return next.getPositionX() > current.getPositionX() ? Orientation.FacingRight : Orientation.FacingLeft;
+    }
+
+    private List<Instruction> generateTurnInstructions(Orientation current, Orientation required) {
+        List<Instruction> instructions = new ArrayList<>();
+        while (current != required) {
+            if (isClockwiseTurn(current, required)) {
+                instructions.add(Instruction.TURNRIGHT);
+                current = current.turnRight();
+            } else {
+                instructions.add(Instruction.TURNLEFT);
+                current = current.turnLeft();
+            }
+        }
+        return instructions;
+    }
+
+    private boolean isClockwiseTurn(Orientation current, Orientation required) {
+        return (current == Orientation.FacingRight && required == Orientation.FacingDown) ||
+                (current == Orientation.FacingDown && required == Orientation.FacingLeft) ||
+                (current == Orientation.FacingLeft && required == Orientation.FacingUp) ||
+                (current == Orientation.FacingUp && required == Orientation.FacingRight);
+    }
+
+    private List<MazePosition> reconstructPath(int[][] distances, MazePosition target) {
         List<MazePosition> path = new ArrayList<>();
-        if (distances[targetX][targetY] == -1) return path;  // Target is unreachable
-
-        int x = targetX;
-        int y = targetY;
+        int x = target.getPositionX();
+        int y = target.getPositionY();
         while (distances[x][y] != 0) {
-            path.add(new MazePosition(x, y, Orientation.FacingRight));  // Orientation can be adjusted
-            int[] dx = {1, -1, 0, 0};
-            int[] dy = {0, 0, 1, -1};
-            for (int i = 0; i < 4; i++) {
-                int nx = x - dx[i];
-                int ny = y - dy[i];
-                if (nx >= 0 && nx < maze.getSizeX() && ny >= 0 && ny < maze.getSizeY() &&
-                        distances[nx][ny] == distances[x][y] - 1) {
-                    x = nx;
-                    y = ny;
-                    break;
-                }
+            path.add(new MazePosition(x, y, Orientation.FacingRight));
+            int[] previous = findPreviousPosition(distances, x, y);
+            x = previous[0];
+            y = previous[1];
+        }
+        path.add(new MazePosition(x, y, Orientation.FacingRight));
+        Collections.reverse(path);
+        return path;
+    }
+
+    private int[] findPreviousPosition(int[][] distances, int x, int y) {
+        for (int i = 0; i < 4; i++) {
+            int nx = x - DX[i];
+            int ny = y - DY[i];
+            if (isValidPreviousPosition(nx, ny, distances, x, y)) {
+                return new int[]{nx, ny};
             }
         }
-        path.add(new MazePosition(x, y, Orientation.FacingRight));  // Add the start position
-        Collections.reverse(path);  // Reverse to start from the beginning
-        return path;
+        return new int[]{x, y};
+    }
+
+    private boolean isValidPreviousPosition(int nx, int ny, int[][] distances, int x, int y) {
+        return nx >= 0 && nx < maze.getSizeX() && ny >= 0 && ny < maze.getSizeY() &&
+                distances[nx][ny] == distances[x][y] - 1;
     }
 }

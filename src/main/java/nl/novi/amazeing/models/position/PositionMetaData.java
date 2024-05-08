@@ -1,10 +1,11 @@
 package nl.novi.amazeing.models.position;
 
 public enum PositionMetaData {
-    ISACCESSABLE,
-    ISTARGET,
-    ISDEADLY,
-    ISBONUS, NOENTRY;
+    IS_ACCESSIBLE,
+    IS_TARGET,
+    IS_DEADLY,
+    IS_BONUS,
+    NO_ENTRY
  }
 
 

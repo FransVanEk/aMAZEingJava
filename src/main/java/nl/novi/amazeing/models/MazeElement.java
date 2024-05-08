@@ -11,7 +11,7 @@ import java.util.Set;
 public class MazeElement {
     MazePosition position;
     Drawable Item;
-    private EnumWrapper<PositionMetaData> positionMetaData = new EnumWrapper<>(PositionMetaData.class);
+    private final EnumWrapper<PositionMetaData> positionMetaData = new EnumWrapper<>(PositionMetaData.class);
 
     public MazeElement(MazePosition position, Drawable item, PositionMetaData... positionMetaData) {
         this.position = position;

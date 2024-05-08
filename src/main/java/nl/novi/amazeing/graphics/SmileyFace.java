@@ -11,12 +11,12 @@ public class SmileyFace implements Drawable {
 
     @Override
     public void draw(Graphics2D g2d, GraphicsPosition position) {
-        var headRadius = (int) (this.headRadius * position.getElementFactor());
-        var eyeRadius = (int) (this.eyeRadius * position.getElementFactor());
+        var headRadius = (int) (this.headRadius * position.elementFactor());
+        var eyeRadius = (int) (this.eyeRadius * position.elementFactor());
 
         // Calculate head center position
-        int headX = position.getX() - headRadius / 2;
-        int headY = position.getY() - headRadius / 2;
+        int headX = position.x() - headRadius / 2;
+        int headY = position.y() - headRadius / 2;
 
         // Draw head
         g2d.setColor(Color.YELLOW);

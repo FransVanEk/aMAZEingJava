@@ -1,7 +1,5 @@
 package nl.novi.amazeing.models.position;
 
-import java.util.EnumSet;
-
 public class MazePosition {
     int positionX;
     int positionY;
@@ -17,35 +15,30 @@ public class MazePosition {
         return positionX;
     }
 
-
     public int getPositionY() {
         return positionY;
     }
 
-    public Orientation getOrientation() {
-        return orientation;
-    }
-
-    public MazePosition MakeStepInCurrentOrientation(int stepsize) {
+    public MazePosition MakeStepInCurrentOrientation(int stepSize) {
         switch (orientation) {
-            case FacingUp -> positionY -= stepsize;
-            case FacingDown -> positionY += stepsize;
-            case FacingLeft -> positionX -= stepsize;
-            case FacingRight -> positionX += stepsize;
+            case FacingUp -> positionY -= stepSize;
+            case FacingDown -> positionY += stepSize;
+            case FacingLeft -> positionX -= stepSize;
+            case FacingRight -> positionX += stepSize;
         }
         return this;
     }
-    public MazePosition getPositionForCurrentOrientation(int stepsize){
+    public MazePosition getPositionForCurrentOrientation(int stepSize){
         switch (orientation) {
-            case FacingUp ->  {return new MazePosition(positionX,positionY - stepsize, orientation);}
-            case FacingDown ->  {return new MazePosition(positionX,positionY + stepsize, orientation);}
-            case FacingLeft ->  {return new MazePosition(positionX-stepsize,positionY, orientation);}
-            case FacingRight ->  {return new MazePosition(positionX+stepsize,positionY, orientation);}
+            case FacingUp ->  {return new MazePosition(positionX,positionY - stepSize, orientation);}
+            case FacingDown ->  {return new MazePosition(positionX,positionY + stepSize, orientation);}
+            case FacingLeft ->  {return new MazePosition(positionX- stepSize,positionY, orientation);}
+            case FacingRight ->  {return new MazePosition(positionX+ stepSize,positionY, orientation);}
         }
         return this;
     }
 
-    public MazePosition clone() {
+    public MazePosition copy() {
         return new MazePosition(positionX, positionY, orientation);
     }
 
@@ -81,7 +74,5 @@ public class MazePosition {
         return (x== this.getPositionX() && y == this.getPositionY());
     }
 
-    public int getCost() {
-        return 1;
-    }
+
 }

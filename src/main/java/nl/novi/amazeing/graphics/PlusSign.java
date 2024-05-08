@@ -1,53 +1,62 @@
 package nl.novi.amazeing.graphics;
+
 import nl.novi.amazeing.helpers.DrawHelper;
 
 import java.awt.*;
 
 public class PlusSign implements Drawable {
-    private int factorBase = 100;
-    private int armLength = 40;
-    private int thickness = 10;
+    private final int factorBase = 100;
+    private final int armLength = 40;
+    private final int thickness = 10;
 
     @Override
     public void draw(Graphics2D g2d, GraphicsPosition position) {
-        var armLength = (int) (this.armLength * position.getElementFactor());
-        var thickness = (int) (this.thickness * position.getElementFactor());
+        int adjustedArmLength = (int) (armLength * position.elementFactor());
+        int adjustedThickness = (int) (thickness * position.elementFactor());
 
-        int[][] horizontalArm = {
-                {-armLength / 2, -thickness / 2}, // Start point
-                {armLength / 2, -thickness / 2}, // End point
-                {armLength / 2, thickness / 2}, // End point
-                {-armLength / 2, thickness / 2} // Start point
-        };
-
-        int[][] verticalArm = {
-                {-thickness / 2, -armLength / 2}, // Start point
-                {thickness / 2, -armLength / 2}, // End point
-                {thickness / 2, armLength / 2}, // End point
-                {-thickness / 2, armLength / 2} // Start point
-        };
-
-        for (int i = 0; i < horizontalArm.length; i++) {
-            var rotatedPoint = DrawHelper.rotatePointFromOrigin(horizontalArm[i][0], horizontalArm[i][1], position.getAngle());
-            horizontalArm[i][0] = rotatedPoint.getX() + position.getX();
-            horizontalArm[i][1] = rotatedPoint.getY() + position.getY();
-        }
-
-        for (int i = 0; i < verticalArm.length; i++) {
-            var rotatedPoint = DrawHelper.rotatePointFromOrigin(verticalArm[i][0], verticalArm[i][1], position.getAngle());
-            verticalArm[i][0] = rotatedPoint.getX() + position.getX();
-            verticalArm[i][1] = rotatedPoint.getY() + position.getY();
-        }
+        int[][] horizontalArm = createHorizontalArm(adjustedArmLength, adjustedThickness, position.angle(), position.x(), position.y());
+        int[][] verticalArm = createVerticalArm(adjustedArmLength, adjustedThickness, position.angle(), position.x(), position.y());
 
         g2d.setColor(Color.GREEN);
+        drawPolygon(g2d, horizontalArm);
+        drawPolygon(g2d, verticalArm);
+    }
 
-        // Draw horizontal arm
-        g2d.fillPolygon(new int[]{horizontalArm[0][0], horizontalArm[1][0], horizontalArm[2][0], horizontalArm[3][0]},
-                new int[]{horizontalArm[0][1], horizontalArm[1][1], horizontalArm[2][1], horizontalArm[3][1]}, 4);
+    private int[][] createHorizontalArm(int armLength, int thickness, int angle, int x, int y) {
+        int[][] horizontalArm = {
+                {-armLength / 2, -thickness / 2},
+                {armLength / 2, -thickness / 2},
+                {armLength / 2, thickness / 2},
+                {-armLength / 2, thickness / 2}
+        };
+        return applyRotationAndOffset(horizontalArm, angle, x, y);
+    }
 
-        // Draw vertical arm
-        g2d.fillPolygon(new int[]{verticalArm[0][0], verticalArm[1][0], verticalArm[2][0], verticalArm[3][0]},
-                new int[]{verticalArm[0][1], verticalArm[1][1], verticalArm[2][1], verticalArm[3][1]}, 4);
+    private int[][] createVerticalArm(int armLength, int thickness, int angle, int x, int y) {
+        int[][] verticalArm = {
+                {-thickness / 2, -armLength / 2},
+                {thickness / 2, -armLength / 2},
+                {thickness / 2, armLength / 2},
+                {-thickness / 2, armLength / 2}
+        };
+        return applyRotationAndOffset(verticalArm, angle, x, y);
+    }
+
+    private int[][] applyRotationAndOffset(int[][] points, int angle, int offsetX, int offsetY) {
+        for (int i = 0; i < points.length; i++) {
+            var rotatedPoint = DrawHelper.rotatePointFromOrigin(points[i][0], points[i][1], angle);
+            points[i][0] = rotatedPoint.getX() + offsetX;
+            points[i][1] = rotatedPoint.getY() + offsetY;
+        }
+        return points;
+    }
+
+    private void drawPolygon(Graphics2D g2d, int[][] points) {
+        g2d.fillPolygon(
+                new int[]{points[0][0], points[1][0], points[2][0], points[3][0]},
+                new int[]{points[0][1], points[1][1], points[2][1], points[3][1]},
+                4
+        );
     }
 
     @Override

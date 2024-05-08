@@ -48,7 +48,7 @@ public class Tile implements Drawable {
     }
 
     public void draw(Graphics2D g2d, GraphicsPosition position) {
-        int[][] points = GetTileLayoutPoints(position.getElementFactor());
+        int[][] points = GetTileLayoutPoints(position.elementFactor());
 
         CalculatePolygonPointPositions(position, points);
         // Create a polygon from the points
@@ -71,9 +71,9 @@ public class Tile implements Drawable {
 
     private void CalculatePolygonPointPositions(GraphicsPosition position, int[][] points) {
         for (int i = 0; i < points.length; i++) {
-            GraphicsPoint rotatedPoint = DrawHelper.rotatePointFromOrigin(points[i][0], points[i][1], position.getAngle());
-            points[i][0] = rotatedPoint.getX() + position.getX();
-            points[i][1] = rotatedPoint.getY() + position.getY();
+            GraphicsPoint rotatedPoint = DrawHelper.rotatePointFromOrigin(points[i][0], points[i][1], position.angle());
+            points[i][0] = rotatedPoint.getX() + position.x();
+            points[i][1] = rotatedPoint.getY() + position.y();
         }
     }
 

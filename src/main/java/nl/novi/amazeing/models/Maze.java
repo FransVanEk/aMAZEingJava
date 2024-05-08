@@ -1,23 +1,19 @@
 package nl.novi.amazeing.models;
 
-import nl.novi.amazeing.graphics.Drawable;
 import nl.novi.amazeing.models.position.MazePosition;
 import nl.novi.amazeing.models.position.PositionMetaData;
-import nl.novi.amazeing.models.position.Orientation;
 
 import java.util.*;
 
 public class Maze {
     int sizeX;
     int sizeY;
-    private MazeTile[][] tiles;
 
-    private List<MazeElement> mazeElements = new ArrayList<>();
+    private final List<MazeElement> mazeElements = new ArrayList<>();
 
     public Maze(int sizeX, int sizeY) {
         this.sizeX = sizeX;
         this.sizeY = sizeY;
-        tiles = new MazeTile[sizeX - 1][sizeY - 1];
     }
 
     public List<MazeElement> getMazeElements() {
@@ -30,10 +26,6 @@ public class Maze {
 
     public int getSizeY() {
         return sizeY;
-    }
-
-    public void addMazeElements(int x, int y, Drawable drawableItem, PositionMetaData... effects) {
-        mazeElements.add(new MazeElement(new MazePosition(x, y, Orientation.FacingRight), drawableItem, effects));
     }
 
     public void addMazeElements(MazeElement mazeElement) {
@@ -55,7 +47,7 @@ public class Maze {
         return getMetaDataFor(position.getPositionX(),position.getPositionY());
     }
 
-    public void RemoveElementsAt(int x, int y) {
+    public void removeElementsAt(int x, int y) {
         for (int i = 0; i < mazeElements.size(); i++) {
             if (mazeElements.get(i).getPosition().isPosition(x, y)) {
                 mazeElements.remove(i);

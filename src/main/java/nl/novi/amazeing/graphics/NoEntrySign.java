@@ -9,19 +9,19 @@ public class NoEntrySign implements Drawable {
 
     @Override
     public void draw(Graphics2D g2d, GraphicsPosition position) {
-        var circleRadius = (int) (this.circleRadius * position.getElementFactor());
-        var barWidth = (int) (this.barWidth * position.getElementFactor());
+        var circleRadius = (int) (this.circleRadius * position.elementFactor());
+        var barWidth = (int) (this.barWidth * position.elementFactor());
 
         // Calculate circle center position
-        int centerX = position.getX() - circleRadius / 2;
-        int centerY = position.getY() - circleRadius / 2;
+        int centerX = position.x() - circleRadius / 2;
+        int centerY = position.y() - circleRadius / 2;
 
         // Draw red circle
         g2d.setColor(Color.RED);
         g2d.fillOval(centerX, centerY, circleRadius, circleRadius);
 
         // Calculate bar position
-        int barY = position.getY() - barWidth / 2;
+        int barY = position.y() - barWidth / 2;
 
         // Draw white bar
         g2d.setColor(Color.WHITE);
