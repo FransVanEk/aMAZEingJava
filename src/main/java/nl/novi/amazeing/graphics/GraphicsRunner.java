@@ -30,7 +30,7 @@ public class GraphicsRunner extends JPanel {
     }
 
     public void setSpeed(long speed) {
-        sleepTime = Math.max(1, Math.min(100, speed));
+        sleepTime = 100- Math.max(1, Math.min(100, speed));
     }
 
     public void start() {
