@@ -3,6 +3,11 @@ package nl.novi.amazeing.models.position;
 public class MazePosition {
     int positionX;
     int positionY;
+
+    public Orientation getOrientation() {
+        return orientation;
+    }
+
     Orientation orientation;
 
     public MazePosition(int positionX, int positionY, Orientation orientation) {
@@ -28,7 +33,10 @@ public class MazePosition {
         }
         return this;
     }
-    public MazePosition getPositionForCurrentOrientation(int stepSize){
+    public MazePosition getPositionForCurrentOrientationForStep(int stepSize){
+       return getPositionForStep(stepSize,orientation);
+    }
+    public MazePosition getPositionForStep(int stepSize, Orientation orientation){
         switch (orientation) {
             case FacingUp ->  {return new MazePosition(positionX,positionY - stepSize, orientation);}
             case FacingDown ->  {return new MazePosition(positionX,positionY + stepSize, orientation);}
@@ -37,7 +45,6 @@ public class MazePosition {
         }
         return this;
     }
-
     public MazePosition copy() {
         return new MazePosition(positionX, positionY, orientation);
     }

@@ -5,6 +5,7 @@ public enum PositionMetaData {
     IS_TARGET,
     IS_DEADLY,
     IS_BONUS,
+    NO_TILE,
     NO_ENTRY
  }
 

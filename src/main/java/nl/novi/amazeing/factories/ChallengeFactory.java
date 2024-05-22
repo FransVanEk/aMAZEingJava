@@ -82,4 +82,12 @@ public class ChallengeFactory {
             maze.addMazeElements(MazeElementsFactory.NoEntrySign(x, y));
         }
     }
+
+    public static Challenge Les_1_Opdracht_1(int horizontaalAantal, int verticaalAantal) {
+        var graphicsRunner = new GraphicsRunner();
+        var maze = new Maze(horizontaalAantal, verticaalAantal);
+        var player = new Player(new Triangle(), maze, graphicsRunner);
+        player.setPosition(0, 0, Orientation.FacingRight).setSpeed(10);
+        return new Challenge(maze, player);
+    }
 }

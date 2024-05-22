@@ -181,7 +181,8 @@ public class GraphicsRunner extends JPanel {
     }
 
     private double calculateBlockSize(Maze maze) {
-        return Math.min(frameWidth / (double) maze.getSizeX(), (frameHeight - 30) / (double) maze.getSizeY()) * 0.9;
+        var size = Math.min(frameWidth / (double) maze.getSizeX(), (frameHeight - 30) / (double) maze.getSizeY()) * 0.9;
+        return Math.min(100,size); // limits to max 100;
     }
 
     private void drawGraphicsAtPosition(Graphics2D g2d, Drawable graphicsPlayer, int x, int y, int angle) {

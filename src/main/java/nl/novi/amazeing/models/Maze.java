@@ -40,6 +40,9 @@ public class Maze {
                 uniqueEffects.addAll(element.getPositionMetaData());
             }
         }
+        if(x<0 || x >= sizeX || y <0 || y >=sizeY) {
+            uniqueEffects.add(PositionMetaData.NO_TILE);
+        }
         return uniqueEffects;
     }
 
