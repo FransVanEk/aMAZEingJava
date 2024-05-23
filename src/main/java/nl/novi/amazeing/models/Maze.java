@@ -50,6 +50,8 @@ public class Maze {
         return getMetaDataFor(position.getPositionX(),position.getPositionY());
     }
 
+
+
     public void removeElementsAt(int x, int y) {
         for (int i = 0; i < mazeElements.size(); i++) {
             if (mazeElements.get(i).getPosition().isPosition(x, y)) {
@@ -59,7 +61,25 @@ public class Maze {
 
         }
     }
+    public boolean isAccessible(MazePosition position) {
+        return isAccessible(getMetaDataFor(position.getPositionX(),position.getPositionY()));
+    }
 
+    public boolean isAccessible(Collection<PositionMetaData> effects) {
+        return !(effects.contains(PositionMetaData.NO_ENTRY) || effects.contains(PositionMetaData.NO_TILE));
+    }
+
+    public boolean isTarget(MazePosition position) {
+        return isTarget(getMetaDataFor(position.getPositionX(),position.getPositionY()));
+    }
+
+    public boolean isTarget(Collection<PositionMetaData> effects) {
+        return (effects.contains(PositionMetaData.IS_TARGET));
+    }
+
+    public boolean isEmptySpot(MazePosition position) {
+        return isEmptySpot(position.getPositionX(),position.getPositionY());
+    }
     public boolean isEmptySpot(int x, int y) {
         for (MazeElement element : mazeElements) {
             if (element.getPosition().isPosition(x, y)) {
@@ -67,6 +87,22 @@ public class Maze {
             }
         }
         return true;
+    }
+
+    public boolean isBonus(MazePosition position) {
+        return isBonus(getMetaDataFor(position.getPositionX(),position.getPositionY()));
+    }
+
+    public boolean isBonus(Collection<PositionMetaData> effects) {
+        return (effects.contains(PositionMetaData.IS_BONUS));
+    }
+
+    public boolean isDeadly(MazePosition position) {
+        return isDeadly(getMetaDataFor(position.getPositionX(),position.getPositionY()));
+    }
+
+    public boolean isDeadly(Collection<PositionMetaData> effects) {
+        return (effects.contains(PositionMetaData.IS_DEADLY));
     }
 }
 

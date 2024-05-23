@@ -16,21 +16,22 @@ import java.awt.image.BufferedImage;
 
 public class GraphicsRunner extends JPanel {
     private BufferedImage mazeImage;
-    private int NUM_STEPS = 6;
+    private int NUM_STEPS = 10;
     private double blockSize = 100;
     private int frameWidth;
     private int frameHeight;
     private Maze maze;
     private Drawable graphicsPlayer;
     private MazePosition playerPosition;
-    private long sleepTime;
+    private long sleepTime =0;
 
     public GraphicsRunner() {
         this.start();
     }
 
     public void setSpeed(long speed) {
-        sleepTime = 100- Math.max(1, Math.min(100, speed));
+        //sleepTime = 100- Math.max(1, Math.min(100, speed));
+        NUM_STEPS = 3 + (int)(100/speed);
     }
 
     public void start() {
@@ -127,15 +128,14 @@ public class GraphicsRunner extends JPanel {
     }
 
     private void playerUpdateGraphics(Maze maze, MazePosition newPosition, Graphics2D g2d) {
-        var effects = maze.getMetaDataFor(newPosition);
-        if (effects.contains(PositionMetaData.IS_TARGET)) {
+        if (maze.isTarget(newPosition)) {
             drawGraphicsAtPosition(g2d, new SmileyFace(), (int) ((newPosition.getPositionX() + 0.5) * blockSize), (int) ((newPosition.getPositionY() + 0.5) * blockSize), (int) newPosition.getOrientationDegrees());
         }
-        if (effects.contains(PositionMetaData.IS_BONUS)) {
+        if (maze.isBonus(newPosition)) {
             maze.removeElementsAt(newPosition.getPositionX(), newPosition.getPositionY());
             mazeImage = null;
         }
-        if (effects.contains(PositionMetaData.IS_DEADLY)) {
+        if (maze.isDeadly(newPosition)) {
             drawGraphicsAtPosition(g2d, new SadFace(), (int) ((newPosition.getPositionX() + 0.5) * blockSize), (int) ((newPosition.getPositionY() + 0.5) * blockSize), (int) newPosition.getOrientationDegrees());
             throw new SteppedOnDeadlyElementException("Oooops");
         }

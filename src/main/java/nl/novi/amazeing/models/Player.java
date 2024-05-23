@@ -69,38 +69,35 @@ public class Player {
 
     public boolean canMoveForward() {
         Collection<PositionMetaData> effects = getEffectsForMovingForward();
-        return canMove(effects);
+        return maze.isAccessible(effects);
     }
 
     public boolean canMoveLeft() {
         Collection<PositionMetaData> effects = getEffectsForMovingLeft();
-        return canMove(effects);
+        return maze.isAccessible(effects);
     }
 
     public boolean canMoveRight() {
         Collection<PositionMetaData> effects = getEffectsForMovingRight();
-        return canMove(effects);
+        return maze.isAccessible(effects);
     }
 
-    private boolean canMove(Collection<PositionMetaData> effects) {
-        return !(effects.contains(PositionMetaData.NO_ENTRY) || effects.contains(PositionMetaData.NO_TILE));
-    }
 
     public boolean isSaveToMoveForward() {
         Collection<PositionMetaData> effects = getEffectsForMovingForward();
-        if(!canMove(effects)){ return false;}
+        if(!maze.isAccessible(effects)){ return false;}
         return !(effects.contains(PositionMetaData.IS_DEADLY));
     }
 
     public boolean isSaveToMoveLeft() {
         Collection<PositionMetaData> effects = getEffectsForMovingLeft();
-        if(!canMove(effects)){ return false;}
+        if(!maze.isAccessible(effects)){ return false;}
         return !(effects.contains(PositionMetaData.IS_DEADLY));
     }
 
     public boolean isSaveToMoveRight() {
         Collection<PositionMetaData> effects = getEffectsForMovingRight();
-        if(!canMove(effects)){ return false;}
+        if(!maze.isAccessible(effects)){ return false;}
         return !(effects.contains(PositionMetaData.IS_DEADLY));
     }
 

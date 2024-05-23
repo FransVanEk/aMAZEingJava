@@ -7,16 +7,14 @@ import nl.novi.amazeing.models.position.PositionMetaData;
 
 import java.util.*;
 
-public class BreadthFirstSearchNavigator {
+public class BreadthFirstSearchNavigator implements Navigator {
     private static final int[] DX = {1, -1, 0, 0};
     private static final int[] DY = {0, 0, 1, -1};
-    private final Maze maze;
+    private Maze maze;
 
-    public BreadthFirstSearchNavigator(Maze maze) {
+    @Override
+    public List<Instruction> findPathToTarget(Maze maze, int startX, int startY) {
         this.maze = maze;
-    }
-
-    public List<Instruction> findPathToTarget(int startX, int startY) {
         int[][] distances = initializeDistances();
         MazePosition targetPosition = performBreadthFirstSearch(distances, startX, startY);
         if (targetPosition == null) {
@@ -68,7 +66,8 @@ public class BreadthFirstSearchNavigator {
     }
 
     private boolean canEnter(int x, int y) {
-        return !maze.getMetaDataFor(x, y).contains(PositionMetaData.NO_ENTRY);
+        var effects = maze.getMetaDataFor(x, y);
+        return maze.isAccessible(effects);
     }
 
     private List<Instruction> convertToInstructions(List<MazePosition> path) {

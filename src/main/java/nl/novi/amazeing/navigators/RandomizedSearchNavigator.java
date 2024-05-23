@@ -7,22 +7,20 @@ import nl.novi.amazeing.models.position.PositionMetaData;
 
 import java.util.*;
 
-public class RandomizedSearchNavigator {
+public class RandomizedSearchNavigator implements Navigator {
     private static final int[][] DIRECTIONS = {
             {1, 0, Orientation.FacingRight.ordinal()},
             {-1, 0, Orientation.FacingLeft.ordinal()},
             {0, 1, Orientation.FacingDown.ordinal()},
             {0, -1, Orientation.FacingUp.ordinal()}
     };
-    private final Maze maze;
+    private Maze maze;
     private final Set<MazePosition> visitedPositions = new HashSet<>();
     private final Map<MazePosition, MazePosition> cameFrom = new HashMap<>();
 
-    public RandomizedSearchNavigator(Maze maze) {
-        this.maze = maze;
-    }
 
-    public List<Instruction> findPathToTarget(int startX, int startY) {
+    public List<Instruction> findPathToTarget(Maze maze,int startX, int startY) {
+        this.maze = maze;
         MazePosition targetPosition = exploreRandomly(new MazePosition(startX, startY, Orientation.FacingRight));
         return targetPosition == null ? Collections.emptyList() : convertToInstructions(reconstructPath(targetPosition));
     }
