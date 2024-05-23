@@ -67,7 +67,7 @@ public class BreadthFirstSearchNavigator implements Navigator {
 
     private boolean canEnter(int x, int y) {
         var effects = maze.getMetaDataFor(x, y);
-        return maze.isAccessible(effects);
+        return maze.isAccessible(effects) && !maze.isDeadly(effects);
     }
 
     private List<Instruction> convertToInstructions(List<MazePosition> path) {
