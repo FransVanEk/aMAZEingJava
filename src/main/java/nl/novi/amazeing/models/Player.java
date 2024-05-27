@@ -32,7 +32,7 @@ public class Player {
         return this;
     }
 
-    public void moveForward() {
+    public void moveForward()  {
         MakeStepInCurrentOrientation(1);
     }
 
@@ -83,6 +83,10 @@ public class Player {
     }
 
 
+    /**
+     * @return true when player can move forward
+     * and if there is no deadly element on the forward tile
+     */
     public boolean isSaveToMoveForward() {
         Collection<PositionMetaData> effects = getEffectsForMovingForward();
         if(!maze.isAccessible(effects)){ return false;}
@@ -150,5 +154,9 @@ public class Player {
 
     public void setName(String spelerNaam) {
         this.name = spelerNaam;
+    }
+
+    public boolean isOnTarget() {
+        return this.maze.isTarget(mazePosition);
     }
 }

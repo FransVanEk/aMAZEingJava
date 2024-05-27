@@ -29,25 +29,48 @@ public class ChallengeFactory {
 
     public static Challenge constructChallenge2() {
         var graphicsRunner = new GraphicsRunner();
-        var maze = new Maze(6, 2);
+        var maze = new Maze(9, 9);
         var player = new Player(new Triangle(), maze, graphicsRunner);
         player.setPosition(0, 0, Orientation.FacingRight);
-        maze.addMazeElements(MazeElementsFactory.openDoorAsTarget(5, 0));
-        maze.addMazeElements(MazeElementsFactory.noEntrySign(RandomHelpers.getRandomNumber(4) + 1, 0));
+        maze.addMazeElements(MazeElementsFactory.openDoorAsTarget(4, 4));
+        maze.addMazeElements(MazeElementsFactory.noEntrySign(8, 8));
+        maze.addMazeElements(MazeElementsFactory.noEntrySign(0, 7));
+        maze.addMazeElements(MazeElementsFactory.noEntrySign(1, 1));
+        maze.addMazeElements(MazeElementsFactory.noEntrySign(7, 2));
+        maze.addMazeElements(MazeElementsFactory.noEntrySign(6, 6));
+        maze.addMazeElements(MazeElementsFactory.noEntrySign(2, 5));
+        maze.addMazeElements(MazeElementsFactory.noEntrySign(3, 3));
         return new Challenge(maze, player);
     }
 
-    public static Challenge constructChallenge3() {
-        var graphicsRunner = new GraphicsRunner();
-        var mazeX = RandomHelpers.getRandomNumber(20) + 4;
-        var maze = new Maze(mazeX, 2);
-        var player = new Player(new Triangle(), maze, graphicsRunner);
-        player.setPosition(0, 0, Orientation.FacingRight);
-        maze.addMazeElements(MazeElementsFactory.openDoorAsTarget(mazeX - 1, 0));
-        maze.addMazeElements(MazeElementsFactory.noEntrySign(RandomHelpers.getRandomNumber((mazeX / 2)) + 1, 0));
-        maze.addMazeElements(MazeElementsFactory.noEntrySign(RandomHelpers.getRandomNumber((mazeX / 2)) + (mazeX / 2) + 1, 1));
-        return new Challenge(maze, player);
+    public static Challenge constructChallenge2_1() {
+       var challenge = constructChallenge2();
+       challenge.maze().removeElementsAt(3,3);
+       challenge.maze().addMazeElements(MazeElementsFactory.crossAsDeadly(3,3));
+        return challenge;
     }
+
+//    public static Challenge constructChallenge2() {
+//        var graphicsRunner = new GraphicsRunner();
+//        var maze = new Maze(6, 2);
+//        var player = new Player(new Triangle(), maze, graphicsRunner);
+//        player.setPosition(0, 0, Orientation.FacingRight);
+//        maze.addMazeElements(MazeElementsFactory.openDoorAsTarget(5, 0));
+//        maze.addMazeElements(MazeElementsFactory.noEntrySign(RandomHelpers.getRandomNumber(4) + 1, 0));
+//        return new Challenge(maze, player);
+//    }
+//
+//    public static Challenge constructChallenge3() {
+//        var graphicsRunner = new GraphicsRunner();
+//        var mazeX = RandomHelpers.getRandomNumber(20) + 4;
+//        var maze = new Maze(mazeX, 2);
+//        var player = new Player(new Triangle(), maze, graphicsRunner);
+//        player.setPosition(0, 0, Orientation.FacingRight);
+//        maze.addMazeElements(MazeElementsFactory.openDoorAsTarget(mazeX - 1, 0));
+//        maze.addMazeElements(MazeElementsFactory.noEntrySign(RandomHelpers.getRandomNumber((mazeX / 2)) + 1, 0));
+//        maze.addMazeElements(MazeElementsFactory.noEntrySign(RandomHelpers.getRandomNumber((mazeX / 2)) + (mazeX / 2) + 1, 1));
+//        return new Challenge(maze, player);
+//    }
 
     public static Challenge constructRandomChallenge(int size) {
 
