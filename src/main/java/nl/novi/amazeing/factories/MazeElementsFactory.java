@@ -11,23 +11,23 @@ import nl.novi.amazeing.models.position.Orientation;
 
 public class MazeElementsFactory {
 
-    public static MazeElement OpenDoorAsTarget(int x, int y) {
+    public static MazeElement openDoorAsTarget(int x, int y) {
         return new MazeElement(new MazePosition(x, y, Orientation.FacingRight), new OpenDoor(), PositionMetaData.IS_TARGET, PositionMetaData.IS_ACCESSIBLE);
     }
 
-    public static MazeElement PlusAsBonus(int x, int y) {
+    public static MazeElement plusAsBonus(int x, int y) {
         return new MazeElement(new MazePosition(x, y, Orientation.FacingRight), new PlusSign(), PositionMetaData.IS_BONUS);
     }
 
-    public static MazeElement CrossAsDeadly(int x, int y) {
+    public static MazeElement crossAsDeadly(int x, int y) {
         return new MazeElement(new MazePosition(x, y, Orientation.FacingRight), new Cross(), PositionMetaData.IS_DEADLY);
     }
 
-    public static MazeElement CrossAsNoEntry(int x, int y) {
+    public static MazeElement crossAsNoEntry(int x, int y) {
         return new MazeElement(new MazePosition(x, y, Orientation.FacingRight), new Cross(), PositionMetaData.NO_ENTRY);
     }
 
-    public static MazeElement NoEntrySign(int x, int y) {
+    public static MazeElement noEntrySign(int x, int y) {
         return new MazeElement(new MazePosition(x, y, Orientation.FacingRight), new NoEntrySign(), PositionMetaData.NO_ENTRY);
     }
 

@@ -5,40 +5,33 @@ import nl.novi.amazeing.helpers.DrawHelper;
 import java.awt.*;
 
 public class Cross implements Drawable {
-    private final int factorBase = 60;
-    private final int armLength = 40;
-    private final int thickness = 10;
+
+    private static final int FACTOR_BASE = 60;
+    private static final int ARM_LENGTH = 40;
+    private static final int THICKNESS = 10;
+    private static final int ANGLE = 45;
 
     @Override
     public void draw(Graphics2D g2d, GraphicsPosition position) {
-        int adjustedArmLength = (int) (armLength * position.elementFactor());
-        int adjustedThickness = (int) (thickness * position.elementFactor());
+        int adjustedArmLength = (int) (ARM_LENGTH * position.elementFactor());
+        int adjustedThickness = (int) (THICKNESS * position.elementFactor());
 
-        int[][] horizontalArm = createHorizontalArm(adjustedArmLength, adjustedThickness, 45, position.x(), position.y());
-        int[][] verticalArm = createVerticalArm(adjustedArmLength, adjustedThickness, 45, position.x(), position.y());
+        int[][] horizontalArm = createHorizontalArm(adjustedArmLength, adjustedThickness, position.x(), position.y());
+        int[][] verticalArm = createVerticalArm(adjustedArmLength, adjustedThickness, position.x(), position.y());
 
         g2d.setColor(Color.RED);
         drawPolygon(g2d, horizontalArm);
         drawPolygon(g2d, verticalArm);
     }
 
-    private int[][] createHorizontalArm(int armLength, int thickness, int angle, int x, int y) {
+    private int[][] createHorizontalArm(int armLength, int thickness,  int x, int y) {
         int[][] horizontalArm = {{-armLength / 2, -thickness / 2}, {armLength / 2, -thickness / 2}, {armLength / 2, thickness / 2}, {-armLength / 2, thickness / 2}};
-        return applyRotationAndOffset(horizontalArm, angle, x, y);
+        return applyRotationAndOffset(horizontalArm,  x, y, ANGLE);
     }
 
-    private int[][] createVerticalArm(int armLength, int thickness, int angle, int x, int y) {
+    private int[][] createVerticalArm(int armLength, int thickness,  int x, int y) {
         int[][] verticalArm = {{-thickness / 2, -armLength / 2}, {thickness / 2, -armLength / 2}, {thickness / 2, armLength / 2}, {-thickness / 2, armLength / 2}};
-        return applyRotationAndOffset(verticalArm, angle, x, y);
-    }
-
-    private int[][] applyRotationAndOffset(int[][] points, int angle, int offsetX, int offsetY) {
-        for (int i = 0; i < points.length; i++) {
-            var rotatedPoint = DrawHelper.rotatePointFromOrigin(points[i][0], points[i][1], angle);
-            points[i][0] = rotatedPoint.getX() + offsetX;
-            points[i][1] = rotatedPoint.getY() + offsetY;
-        }
-        return points;
+        return applyRotationAndOffset(verticalArm,  x, y, ANGLE);
     }
 
     private void drawPolygon(Graphics2D g2d, int[][] points) {
@@ -46,7 +39,7 @@ public class Cross implements Drawable {
     }
 
     @Override
-    public int getFactorBase() {
-        return factorBase;
+    public int getFACTOR_BASE() {
+        return FACTOR_BASE;
     }
 }

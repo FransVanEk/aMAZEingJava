@@ -5,14 +5,14 @@ import nl.novi.amazeing.helpers.DrawHelper;
 import java.awt.*;
 
 public class Triangle implements Drawable {
-    private int factorBase = 100;
-    private int baseLength = 40;
-    private int height = 60;
+    private static final int FACTOR_BASE = 100;
+    private static final int BASE_LENGTH = 40;
+    private static final int HEIGHT = 60;
 
     public void draw(Graphics2D g2d, GraphicsPosition position) {
 
-        var height =(int) (this.height * position.elementFactor());
-        var baseLength = (int) (this.baseLength * position.elementFactor());
+        var height =(int) (HEIGHT * position.elementFactor());
+        var baseLength = (int) (BASE_LENGTH * position.elementFactor());
 
         int[][] points = {
                 {0, -height / 2}, // Top point
@@ -22,8 +22,8 @@ public class Triangle implements Drawable {
 
         for (int i = 0; i < points.length; i++) {
             var rotatedPoint = DrawHelper.rotatePointFromOrigin(points[i][0], points[i][1], position.angle());
-            points[i][0] = rotatedPoint.getX() + position.x();
-            points[i][1] = rotatedPoint.getY() + position.y();
+            points[i][0] = rotatedPoint.x() + position.x();
+            points[i][1] = rotatedPoint.y() + position.y();
         }
         g2d.setColor(Color.BLUE);
 
@@ -32,8 +32,8 @@ public class Triangle implements Drawable {
                 new int[]{points[0][1], points[1][1], points[2][1]}, 3);
     }
 
-    public int getFactorBase() {
-        return factorBase;
+    public int getFACTOR_BASE() {
+        return FACTOR_BASE;
     }
 }
 

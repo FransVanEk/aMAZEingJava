@@ -4,7 +4,7 @@ import java.util.EnumSet;
 import java.util.Set;
 
 public class EnumWrapper<T extends Enum<T>> {
-    private EnumSet<T> enumItems;
+    private final EnumSet<T> enumItems;
 
     public EnumWrapper(Class<T> enumType) {
         this.enumItems = EnumSet.noneOf(enumType);

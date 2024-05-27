@@ -9,8 +9,8 @@ import java.util.Arrays;
 import java.util.Set;
 
 public class MazeElement {
-    MazePosition position;
-    Drawable Item;
+    final MazePosition position;
+    final Drawable Item;
     private final EnumWrapper<PositionMetaData> positionMetaData = new EnumWrapper<>(PositionMetaData.class);
 
     public MazeElement(MazePosition position, Drawable item, PositionMetaData... positionMetaData) {

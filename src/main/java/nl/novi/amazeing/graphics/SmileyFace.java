@@ -3,16 +3,16 @@ package nl.novi.amazeing.graphics;
 import java.awt.*;
 
 public class SmileyFace implements Drawable {
-    private int factorBase = 50;
-    private int headRadius = 40;
-    private int eyeRadius = 5;
-    private int smileStartAngle = 180;
-    private int smileExtentAngle = 180;
+    private static final int FACTOR_BASE = 50;
+    private static final int HEAD_RADIUS = 40;
+    private static final int EYE_RADIUS = 5;
+    private static final int SMILE_START_ANGLE = 180;
+    private static final int SMILE_EXTENT_ANGLE = 180;
 
     @Override
     public void draw(Graphics2D g2d, GraphicsPosition position) {
-        var headRadius = (int) (this.headRadius * position.elementFactor());
-        var eyeRadius = (int) (this.eyeRadius * position.elementFactor());
+        var headRadius = (int) (HEAD_RADIUS * position.elementFactor());
+        var eyeRadius = (int) (EYE_RADIUS * position.elementFactor());
 
         // Calculate head center position
         int headX = position.x() - headRadius / 2;
@@ -35,11 +35,11 @@ public class SmileyFace implements Drawable {
         // Draw smile
         g2d.setColor(Color.BLACK);
         g2d.drawArc(headX + headRadius / 4, headY + headRadius / 3, headRadius / 2, headRadius / 4,
-                smileStartAngle, smileExtentAngle);
+                SMILE_START_ANGLE, SMILE_EXTENT_ANGLE);
     }
 
     @Override
-    public int getFactorBase() {
-        return factorBase;
+    public int getFACTOR_BASE() {
+        return FACTOR_BASE;
     }
 }

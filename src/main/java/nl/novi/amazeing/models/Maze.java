@@ -6,8 +6,8 @@ import nl.novi.amazeing.models.position.PositionMetaData;
 import java.util.*;
 
 public class Maze {
-    int sizeX;
-    int sizeY;
+    final int sizeX;
+    final int sizeY;
 
     private final List<MazeElement> mazeElements = new ArrayList<>();
 
@@ -68,6 +68,8 @@ public class Maze {
     public boolean isAccessible(Collection<PositionMetaData> effects) {
         return !(effects.contains(PositionMetaData.NO_ENTRY) || effects.contains(PositionMetaData.NO_TILE));
     }
+
+
 
     public boolean isTarget(MazePosition position) {
         return isTarget(getMetaDataFor(position.getPositionX(),position.getPositionY()));

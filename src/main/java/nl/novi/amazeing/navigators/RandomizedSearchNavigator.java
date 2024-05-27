@@ -1,5 +1,6 @@
 package nl.novi.amazeing.navigators;
 
+import nl.novi.amazeing.helpers.PositionToInstructionsConverter;
 import nl.novi.amazeing.models.Maze;
 import nl.novi.amazeing.models.position.MazePosition;
 import nl.novi.amazeing.models.position.Orientation;
@@ -22,7 +23,7 @@ public class RandomizedSearchNavigator implements Navigator {
     public List<Instruction> findPathToTarget(Maze maze,int startX, int startY) {
         this.maze = maze;
         MazePosition targetPosition = exploreRandomly(new MazePosition(startX, startY, Orientation.FacingRight));
-        return targetPosition == null ? Collections.emptyList() : convertToInstructions(reconstructPath(targetPosition));
+        return targetPosition == null ? Collections.emptyList() : PositionToInstructionsConverter.convertToInstructions(reconstructPath(targetPosition));
     }
 
     private MazePosition exploreRandomly(MazePosition start) {
@@ -87,7 +88,9 @@ public class RandomizedSearchNavigator implements Navigator {
         return nx >= 0 && nx < maze.getSizeX() &&
                 ny >= 0 && ny < maze.getSizeY() &&
                 !visitedPositions.contains(neighbor) &&
-                !maze.getMetaDataFor(nx, ny).contains(PositionMetaData.NO_ENTRY);
+                !maze.isDeadly(neighbor) &&
+                maze.isAccessible(neighbor)
+                ;
     }
 
     private List<MazePosition> reconstructPath(MazePosition target) {
@@ -101,49 +104,5 @@ public class RandomizedSearchNavigator implements Navigator {
 
         Collections.reverse(path);
         return path;
-    }
-
-    private List<Instruction> convertToInstructions(List<MazePosition> path) {
-        List<Instruction> instructions = new ArrayList<>();
-        if (path.size() < 2) return instructions;
-
-        Orientation currentOrientation = Orientation.FacingRight;
-        for (int i = 0; i < path.size() - 1; i++) {
-            MazePosition current = path.get(i);
-            MazePosition next = path.get(i + 1);
-            Orientation requiredOrientation = determineRequiredOrientation(current, next);
-            instructions.addAll(generateTurnInstructions(currentOrientation, requiredOrientation));
-            instructions.add(Instruction.FORWARD);
-            currentOrientation = requiredOrientation;
-        }
-        return instructions;
-    }
-
-    private Orientation determineRequiredOrientation(MazePosition current, MazePosition next) {
-        if (current.getPositionX() == next.getPositionX()) {
-            return next.getPositionY() > current.getPositionY() ? Orientation.FacingDown : Orientation.FacingUp;
-        }
-        return next.getPositionX() > current.getPositionX() ? Orientation.FacingRight : Orientation.FacingLeft;
-    }
-
-    private List<Instruction> generateTurnInstructions(Orientation current, Orientation required) {
-        List<Instruction> instructions = new ArrayList<>();
-        while (current != required) {
-            if (isClockwiseTurn(current, required)) {
-                instructions.add(Instruction.TURNRIGHT);
-                current = current.turnRight();
-            } else {
-                instructions.add(Instruction.TURNLEFT);
-                current = current.turnLeft();
-            }
-        }
-        return instructions;
-    }
-
-    private boolean isClockwiseTurn(Orientation current, Orientation required) {
-        return (current == Orientation.FacingRight && required == Orientation.FacingDown) ||
-                (current == Orientation.FacingDown && required == Orientation.FacingLeft) ||
-                (current == Orientation.FacingLeft && required == Orientation.FacingUp) ||
-                (current == Orientation.FacingUp && required == Orientation.FacingRight);
     }
 }

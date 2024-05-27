@@ -6,11 +6,11 @@ import nl.novi.amazeing.models.position.GraphicsPoint;
 import java.awt.*;
 
 public class Tile implements Drawable {
-    private int factorBase = 100;
-    private Color borderColor;
-    private Color tileColor;
-    private int baseLength;
-    private float borderWidth = 4;
+    private static final int FACTOR_BASE = 100;
+    private static final float BORDER_WIDTH = 4;
+    private final Color borderColor;
+    private final Color tileColor;
+    private final int baseLength;
 
     public Tile() {
         borderColor = Color.DARK_GRAY;
@@ -32,13 +32,9 @@ public class Tile implements Drawable {
         return polygon;
     }
 
-    public int getBaseLength() {
-        return baseLength;
-    }
-
-    private void AddBordertoPolygon(Graphics2D g2d, Polygon polygon) {
+    private void AddBorderToPolygon(Graphics2D g2d, Polygon polygon) {
         g2d.setColor(borderColor);
-        g2d.setStroke(new BasicStroke(borderWidth , BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER));
+        g2d.setStroke(new BasicStroke(BORDER_WIDTH, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER));
         g2d.draw(polygon);
     }
 
@@ -54,7 +50,7 @@ public class Tile implements Drawable {
         // Create a polygon from the points
         Polygon polygon = GetPolygon(points);
         fillPolygon(g2d, polygon);
-        AddBordertoPolygon(g2d, polygon);
+        AddBorderToPolygon(g2d, polygon);
     }
 
     private int[][] GetTileLayoutPoints(double elementFactor) {
@@ -72,12 +68,12 @@ public class Tile implements Drawable {
     private void CalculatePolygonPointPositions(GraphicsPosition position, int[][] points) {
         for (int i = 0; i < points.length; i++) {
             GraphicsPoint rotatedPoint = DrawHelper.rotatePointFromOrigin(points[i][0], points[i][1], position.angle());
-            points[i][0] = rotatedPoint.getX() + position.x();
-            points[i][1] = rotatedPoint.getY() + position.y();
+            points[i][0] = rotatedPoint.x() + position.x();
+            points[i][1] = rotatedPoint.y() + position.y();
         }
     }
 
-    public int getFactorBase() {
-        return factorBase;
+    public int getFACTOR_BASE() {
+        return FACTOR_BASE;
     }
 }

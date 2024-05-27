@@ -5,13 +5,11 @@ import nl.novi.amazeing.helpers.DrawHelper;
 import nl.novi.amazeing.models.Maze;
 import nl.novi.amazeing.models.MazeElement;
 import nl.novi.amazeing.models.position.MazePosition;
-import nl.novi.amazeing.models.position.PositionMetaData;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import java.awt.event.WindowStateListener;
 import java.awt.image.BufferedImage;
 
 public class GraphicsRunner extends JPanel {
@@ -23,14 +21,12 @@ public class GraphicsRunner extends JPanel {
     private Maze maze;
     private Drawable graphicsPlayer;
     private MazePosition playerPosition;
-    private long sleepTime =0;
 
     public GraphicsRunner() {
         this.start();
     }
 
     public void setSpeed(long speed) {
-        //sleepTime = 100- Math.max(1, Math.min(100, speed));
         NUM_STEPS = 3 + (int)(100/speed);
     }
 
@@ -63,7 +59,7 @@ public class GraphicsRunner extends JPanel {
                 onFrameResize(frame);
             }
         });
-        frame.addWindowStateListener((WindowStateListener) e -> onFrameResize(frame));
+        frame.addWindowStateListener( e -> onFrameResize(frame));
     }
 
     private void onFrameResize(JFrame frame) {
@@ -90,7 +86,7 @@ public class GraphicsRunner extends JPanel {
         }
     }
 
-    public void performMove(Maze maze, Triangle graphicsPlayer, MazePosition currentPosition, MazePosition newPosition) throws SteppedOnDeadlyElementException {
+    public void performMove(Maze maze, Drawable graphicsPlayer, MazePosition currentPosition, MazePosition newPosition) throws SteppedOnDeadlyElementException {
         initMazeImage(maze);
         interpolateMove(graphicsPlayer, currentPosition, newPosition);
         this.maze = maze;
@@ -98,7 +94,7 @@ public class GraphicsRunner extends JPanel {
         this.playerPosition = newPosition;
     }
 
-    private void interpolateMove(Triangle graphicsPlayer, MazePosition currentPosition, MazePosition newPosition) {
+    private void interpolateMove(Drawable graphicsPlayer, MazePosition currentPosition, MazePosition newPosition) {
         Graphics2D g2d = (Graphics2D) getGraphics();
         double stepX = (newPosition.getPositionX() - currentPosition.getPositionX()) / (double) NUM_STEPS;
         double stepY = (newPosition.getPositionY() - currentPosition.getPositionY()) / (double) NUM_STEPS;
@@ -109,41 +105,32 @@ public class GraphicsRunner extends JPanel {
             double interpolatedY = currentPosition.getPositionY() + (i + 1) * stepY + 0.5;
             double interpolatedAngle = currentPosition.getOrientationDegrees() + (i * stepAngle);
             drawInterpolatedMove(g2d, graphicsPlayer, interpolatedX, interpolatedY, interpolatedAngle);
-            sleep();
         }
         drawPlayer(graphicsPlayer, newPosition, g2d);
     }
 
-    private void drawInterpolatedMove(Graphics2D g2d, Triangle graphicsPlayer, double interpolatedX, double interpolatedY, double interpolatedAngle) {
+    private void drawInterpolatedMove(Graphics2D g2d, Drawable graphicsPlayer, double interpolatedX, double interpolatedY, double interpolatedAngle) {
         g2d.drawImage(mazeImage, 0, 0, null);
         drawGraphicsAtPosition(g2d, graphicsPlayer, (int) (interpolatedX * blockSize), (int) (interpolatedY * blockSize), (int) interpolatedAngle);
     }
 
-    private void sleep() {
-        try {
-            Thread.sleep(sleepTime);
-        } catch (InterruptedException ex) {
-            ex.printStackTrace();
-        }
-    }
-
     private void playerUpdateGraphics(Maze maze, MazePosition newPosition, Graphics2D g2d) {
         if (maze.isTarget(newPosition)) {
-            drawGraphicsAtPosition(g2d, new SmileyFace(), (int) ((newPosition.getPositionX() + 0.5) * blockSize), (int) ((newPosition.getPositionY() + 0.5) * blockSize), (int) newPosition.getOrientationDegrees());
+            drawGraphicsAtPosition(g2d, new SmileyFace(), (int) ((newPosition.getPositionX() + 0.5) * blockSize), (int) ((newPosition.getPositionY() + 0.5) * blockSize),  newPosition.getOrientationDegrees());
         }
         if (maze.isBonus(newPosition)) {
             maze.removeElementsAt(newPosition.getPositionX(), newPosition.getPositionY());
             mazeImage = null;
         }
         if (maze.isDeadly(newPosition)) {
-            drawGraphicsAtPosition(g2d, new SadFace(), (int) ((newPosition.getPositionX() + 0.5) * blockSize), (int) ((newPosition.getPositionY() + 0.5) * blockSize), (int) newPosition.getOrientationDegrees());
+            drawGraphicsAtPosition(g2d, new SadFace(), (int) ((newPosition.getPositionX() + 0.5) * blockSize), (int) ((newPosition.getPositionY() + 0.5) * blockSize), newPosition.getOrientationDegrees());
             throw new SteppedOnDeadlyElementException("Oooops");
         }
     }
 
     private void drawPlayer(Drawable graphicsPlayer, MazePosition position, Graphics2D g2d) {
         if (graphicsPlayer == null || position == null || maze == null) return;
-        drawGraphicsAtPosition(g2d, graphicsPlayer, (int) ((position.getPositionX() + 0.5) * blockSize), (int) ((position.getPositionY() + 0.5) * blockSize), (int) position.getOrientationDegrees());
+        drawGraphicsAtPosition(g2d, graphicsPlayer, (int) ((position.getPositionX() + 0.5) * blockSize), (int) ((position.getPositionY() + 0.5) * blockSize),  position.getOrientationDegrees());
         playerUpdateGraphics(maze, position, g2d);
     }
 
@@ -176,7 +163,7 @@ public class GraphicsRunner extends JPanel {
     }
 
     private void drawItemAt(Graphics2D g2d, int x, int y, Drawable itemToDraw) {
-        double factor = blockSize / (double) itemToDraw.getFactorBase();
+        double factor = blockSize / (double) itemToDraw.getFACTOR_BASE();
         itemToDraw.draw(g2d, new GraphicsPosition((int) ((x + 0.5) * blockSize), (int) ((y + 0.5) * blockSize), 0, factor));
     }
 
@@ -186,7 +173,7 @@ public class GraphicsRunner extends JPanel {
     }
 
     private void drawGraphicsAtPosition(Graphics2D g2d, Drawable graphicsPlayer, int x, int y, int angle) {
-        double factor = blockSize / (double) graphicsPlayer.getFactorBase();
+        double factor = blockSize / (double) graphicsPlayer.getFACTOR_BASE();
         graphicsPlayer.draw(g2d, new GraphicsPosition(x, y, angle, factor));
     }
 

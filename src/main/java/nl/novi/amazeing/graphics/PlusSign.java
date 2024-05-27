@@ -5,14 +5,14 @@ import nl.novi.amazeing.helpers.DrawHelper;
 import java.awt.*;
 
 public class PlusSign implements Drawable {
-    private final int factorBase = 100;
-    private final int armLength = 40;
-    private final int thickness = 10;
+    private static final int FACTOR_BASE = 100;
+    private static final int ARM_LENGTH = 40;
+    private static final int THICKNESS = 10;
 
     @Override
     public void draw(Graphics2D g2d, GraphicsPosition position) {
-        int adjustedArmLength = (int) (armLength * position.elementFactor());
-        int adjustedThickness = (int) (thickness * position.elementFactor());
+        int adjustedArmLength = (int) (ARM_LENGTH * position.elementFactor());
+        int adjustedThickness = (int) (THICKNESS * position.elementFactor());
 
         int[][] horizontalArm = createHorizontalArm(adjustedArmLength, adjustedThickness, position.angle(), position.x(), position.y());
         int[][] verticalArm = createVerticalArm(adjustedArmLength, adjustedThickness, position.angle(), position.x(), position.y());
@@ -39,16 +39,7 @@ public class PlusSign implements Drawable {
                 {thickness / 2, armLength / 2},
                 {-thickness / 2, armLength / 2}
         };
-        return applyRotationAndOffset(verticalArm, angle, x, y);
-    }
-
-    private int[][] applyRotationAndOffset(int[][] points, int angle, int offsetX, int offsetY) {
-        for (int i = 0; i < points.length; i++) {
-            var rotatedPoint = DrawHelper.rotatePointFromOrigin(points[i][0], points[i][1], angle);
-            points[i][0] = rotatedPoint.getX() + offsetX;
-            points[i][1] = rotatedPoint.getY() + offsetY;
-        }
-        return points;
+        return   applyRotationAndOffset(verticalArm, x, y, angle);
     }
 
     private void drawPolygon(Graphics2D g2d, int[][] points) {
@@ -60,7 +51,7 @@ public class PlusSign implements Drawable {
     }
 
     @Override
-    public int getFactorBase() {
-        return factorBase;
+    public int getFACTOR_BASE() {
+        return FACTOR_BASE;
     }
 }
