@@ -2,6 +2,7 @@ package nl.novi.amazeing.models;
 
 import nl.novi.amazeing.graphics.Drawable;
 import nl.novi.amazeing.graphics.GraphicsRunner;
+import nl.novi.amazeing.graphics.SadFace;
 import nl.novi.amazeing.models.position.MazePosition;
 import nl.novi.amazeing.models.position.PositionMetaData;
 import nl.novi.amazeing.models.position.Orientation;
@@ -12,7 +13,7 @@ import java.util.Collection;
 import java.util.List;
 
 public class Player {
-    private final Drawable graphicsPlayer;
+    private Drawable graphicsPlayer;
     private final Maze maze;
     private final GraphicsRunner graphicsRunner;
 
@@ -158,5 +159,9 @@ public class Player {
 
     public boolean isOnTarget() {
         return this.maze.isTarget(mazePosition);
+    }
+
+    public void changeAppearance(Drawable newAppearance) {
+        this.graphicsPlayer = newAppearance;
     }
 }

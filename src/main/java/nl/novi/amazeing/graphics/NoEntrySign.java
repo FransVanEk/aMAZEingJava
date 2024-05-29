@@ -5,7 +5,7 @@ import java.awt.*;
 public class NoEntrySign implements Drawable {
     private static final int FACTOR_BASE = 60;
     private static final int CIRCLE_RADIUS = 40;
-    private static final int BAR_HEIGHT = 10;
+    private static final int BAR_HEIGHT = 8;
  final
     @Override
     public void draw(Graphics2D g2d, GraphicsPosition position) {

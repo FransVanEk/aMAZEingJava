@@ -28,7 +28,7 @@ public class Maze {
         return sizeY;
     }
 
-    public void addMazeElements(MazeElement mazeElement) {
+    public void addMazeElement(MazeElement mazeElement) {
         mazeElements.add(mazeElement);
     }
 
