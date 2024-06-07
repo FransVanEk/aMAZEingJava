@@ -15,6 +15,30 @@ public class AMAZEingApp {
         var player = challenge.player();
         player.setSpeed(10);
         player.showMaze();
-        player.findExit();
+        player.moveForward();
+        player.moveForward();
+        player.turnRight();
+        player.moveForward();
+        player.turnLeft();
+        player.moveForward();
+        player.turnRight();
+        player.moveForward();
+        player.turnLeft();
+        player.turnRight();
+        player.turnLeft();
+        player.moveForward();
+        player.turnRight();
+        player.moveForward();
+        player.moveForward();
+        player.turnRight();
+        player.moveForward();
+        player.moveForward();
+        player.moveForward();
+        player.moveForward();
+        player.turnRight();
+        player.moveForward();
+        player.moveForward();
+        player.turnRight();
+        player.moveForward();
     }
 }

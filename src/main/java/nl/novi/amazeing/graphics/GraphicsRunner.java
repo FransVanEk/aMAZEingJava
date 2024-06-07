@@ -10,9 +10,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 
-public class GraphicsRunner extends JPanel {
+public class GraphicsRunner extends JPanel implements KeyListener {
     private BufferedImage mazeImage;
     private int NUM_STEPS = 10;
     private double blockSize = 100;
@@ -33,6 +35,7 @@ public class GraphicsRunner extends JPanel {
     public void start() {
         JFrame frame = createFrame();
         activateResizeLogic(frame);
+        addKeyListeners(frame);
         frame.setVisible(true);
     }
 
@@ -138,7 +141,6 @@ public class GraphicsRunner extends JPanel {
         blockSize = calculateBlockSize(maze);
         if (mazeImage == null || mazeImage.getWidth() != frameWidth || mazeImage.getHeight() != frameHeight) {
             mazeImage = new BufferedImage(frameWidth, frameHeight, BufferedImage.TYPE_INT_ARGB);
-            System.out.println("image created");
             Graphics2D g2d = mazeImage.createGraphics();
             drawMaze(g2d, maze);
         }
@@ -181,5 +183,45 @@ public class GraphicsRunner extends JPanel {
     private void drawCachedMaze(Graphics2D g2d) {
         g2d.drawImage(mazeImage, 0, 0, null);
         drawPlayer(graphicsPlayer, playerPosition, g2d);
+    }
+
+    public void keyPressed(KeyEvent e) {
+        if (playerPosition == null || maze == null || graphicsPlayer == null || graphicsPlayer instanceof SadFace ) return;
+
+        MazePosition newPosition = null;
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_UP:
+                if(maze.isAccessible(playerPosition.getPositionForCurrentOrientationForStep(1))) {
+                    playerPosition.MakeStepInCurrentOrientation(1);
+                    System.out.println("player.moveForward();");
+                    if(maze.isDeadly(playerPosition)){
+                        graphicsPlayer = new SadFace();
+                    }
+                }
+                break;
+            case KeyEvent.VK_LEFT:
+                playerPosition.turnLeft();
+                System.out.println("player.turnLeft();");
+                break;
+            case KeyEvent.VK_RIGHT:
+                playerPosition.turnRight();
+                System.out.println("player.turnRight();");
+                break;
+        }
+        updateMazeImage();
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+    }
+
+    private void addKeyListeners(JFrame frame) {
+        frame.addKeyListener(this);
+        frame.setFocusable(true);
+        frame.requestFocusInWindow();
     }
 }
