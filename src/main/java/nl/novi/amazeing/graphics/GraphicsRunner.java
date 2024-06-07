@@ -138,6 +138,7 @@ public class GraphicsRunner extends JPanel {
         blockSize = calculateBlockSize(maze);
         if (mazeImage == null || mazeImage.getWidth() != frameWidth || mazeImage.getHeight() != frameHeight) {
             mazeImage = new BufferedImage(frameWidth, frameHeight, BufferedImage.TYPE_INT_ARGB);
+            System.out.println("image created");
             Graphics2D g2d = mazeImage.createGraphics();
             drawMaze(g2d, maze);
         }

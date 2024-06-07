@@ -1,8 +1,6 @@
 package nl.novi.amazeing.factories;
 
-import nl.novi.amazeing.graphics.Cross;
 import nl.novi.amazeing.graphics.Drawable;
-import nl.novi.amazeing.graphics.SadFace;
 import nl.novi.amazeing.models.Maze;
 import nl.novi.amazeing.models.MazeElement;
 import nl.novi.amazeing.models.Player;

@@ -1,5 +1,31 @@
 # Les 1
 
+## Introductie opdracht
+
+Hoewel je nog niet alle concepten van Java hebt geleerd, kun je al beginnen met programmeren. Soms heb je daarbij code nodig die je misschien nog niet volledig begrijpt. Dat is niet erg; we gaan die concepten later in detail behandelen. Voor nu is het belangrijk om te beginnen met het toepassen van wat je wel hebt geleerd. De code die je nu krijgt, wordt later duidelijk en verder uitgelegd.
+
+Puntnotatie is een manier om toegang te krijgen tot de eigenschappen (attributen) en methoden (functies) van een object in Java. Dit stelt je in staat om de onderdelen van een klasse te gebruiken. In deze opdracht zul je de puntnotatie toepassen om een doolhof te maken en aan te passen.
+
+Hieronder zie je hoe je een klasse aanmaakt en hoe je puntnotatie gebruikt om de eigenschappen en methoden van een object te benaderen:
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        // Definieer variabelen voor doolhofmaten
+        int horizontaalAantal = 5;
+        int verticaalAantal = 8;
+
+        // Maak de uitdaging aan met variabelen
+        var challenge = ChallengeFactory.Les_1_Opdracht_1_0(horizontaalAantal, verticaalAantal);
+        var player = challenge.player();
+        player.showMaze();
+    }
+}
+```
+
+In dit voorbeeld creëren we een object van de klasse `ChallengeFactory`, stellen we de afmetingen van het doolhof in, en roepen we de methode `showMaze()` aan om het doolhof weer te geven.
+
+
 ## Opdracht Les 1: Variabelen en het Maze-project
 
 Maak een doolhof met de afmetingen 5 horizontaal en 8 verticaal. De opdracht geeft een basis voor de `main`-methode waarin je variabelen kunt toepassen.

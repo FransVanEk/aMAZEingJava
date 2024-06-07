@@ -1,7 +1,5 @@
 package nl.novi.amazeing.graphics;
 
-import nl.novi.amazeing.helpers.DrawHelper;
-
 import java.awt.*;
 
 public class Cross implements Drawable {

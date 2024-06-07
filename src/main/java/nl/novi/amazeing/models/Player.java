@@ -2,38 +2,52 @@ package nl.novi.amazeing.models;
 
 import nl.novi.amazeing.graphics.Drawable;
 import nl.novi.amazeing.graphics.GraphicsRunner;
-import nl.novi.amazeing.graphics.SadFace;
 import nl.novi.amazeing.models.position.MazePosition;
 import nl.novi.amazeing.models.position.PositionMetaData;
 import nl.novi.amazeing.models.position.Orientation;
 import nl.novi.amazeing.navigators.Instruction;
+import nl.novi.amazeing.navigators.Navigator;
+import nl.novi.amazeing.navigators.RandomizedSearchNavigator;
+import nl.novi.amazeing.navigators.SimpleNavigator;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
 public class Player {
-    private Drawable graphicsPlayer;
     private final Maze maze;
     private final GraphicsRunner graphicsRunner;
-
     MazePosition mazePosition;
+    private Drawable graphicsPlayer;
+    private Navigator internalNavigator;
     private String name = "not set";
-
     public Player(Drawable shape, Maze maze, GraphicsRunner graphicsRunner) {
         this.graphicsPlayer = shape;
         this.maze = maze;
         this.graphicsRunner = graphicsRunner;
         this.mazePosition = new MazePosition(0, 0, Orientation.FacingRight);
+        this.internalNavigator = new RandomizedSearchNavigator();
     }
 
+    private static boolean isNotDeadly(Collection<PositionMetaData> effects) {
+        return !effects.contains(PositionMetaData.IS_DEADLY);
+    }
+
+    public GraphicsRunner getGraphicsRunner() {
+        return graphicsRunner;
+    }
+
+    public void findExit() {
+        var instructions = new SimpleNavigator().findPathToTarget(maze, 0, 0);
+        followInstructions(instructions);
+    }
 
     public Player setPosition(int positionX, int positionY, Orientation orientation) {
         this.mazePosition = new MazePosition(positionX, positionY, orientation);
         return this;
     }
 
-    public void moveForward()  {
+    public void moveForward() {
         MakeStepInCurrentOrientation(1);
     }
 
@@ -83,30 +97,31 @@ public class Player {
         return maze.isAccessible(effects);
     }
 
-
     /**
      * @return true when player can move forward
      * and if there is no deadly element on the forward tile
      */
     public boolean isSaveToMoveForward() {
         Collection<PositionMetaData> effects = getEffectsForMovingForward();
-        if(!maze.isAccessible(effects)){ return false;}
+        if (!maze.isAccessible(effects)) {
+            return false;
+        }
         return isNotDeadly(effects);
     }
 
     public boolean isSaveToMoveLeft() {
         Collection<PositionMetaData> effects = getEffectsForMovingLeft();
-        if(!maze.isAccessible(effects)){ return false;}
+        if (!maze.isAccessible(effects)) {
+            return false;
+        }
         return isNotDeadly(effects);
-    }
-
-    private static boolean isNotDeadly(Collection<PositionMetaData> effects) {
-        return !effects.contains(PositionMetaData.IS_DEADLY);
     }
 
     public boolean isSaveToMoveRight() {
         Collection<PositionMetaData> effects = getEffectsForMovingRight();
-        if(!maze.isAccessible(effects)){ return false;}
+        if (!maze.isAccessible(effects)) {
+            return false;
+        }
         return isNotDeadly(effects);
     }
 
@@ -121,7 +136,7 @@ public class Player {
     }
 
     public Collection<PositionMetaData> getEffectsForMovingRight() {
-        var newPosition = mazePosition.getPositionForStep(+1,  mazePosition.getOrientation().turnRight());
+        var newPosition = mazePosition.getPositionForStep(+1, mazePosition.getOrientation().turnRight());
         return maze.getMetaDataFor(newPosition);
     }
 

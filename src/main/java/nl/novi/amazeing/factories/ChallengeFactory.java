@@ -13,7 +13,7 @@ public class ChallengeFactory {
     public static Challenge constructChallenge1() {
         var graphicsRunner = new GraphicsRunner();
         var maze = new Maze(6, 6);
-        var player = new Player(new OpenDoor(), maze, graphicsRunner);
+        var player = new Player(new Triangle(), maze, graphicsRunner);
         player.setPosition(0, 0, Orientation.FacingRight).setSpeed(10);
         maze.addMazeElement(MazeElementsFactory.openDoorAsTarget(1, 2));
         maze.addMazeElement(MazeElementsFactory.noEntrySign(1, 3));
@@ -48,6 +48,15 @@ public class ChallengeFactory {
        challenge.maze().removeElementsAt(3,3);
        challenge.maze().addMazeElement(MazeElementsFactory.crossAsDeadly(3,3));
         return challenge;
+    }
+
+    public static Challenge constructSimpleNavigatorFlawed() {
+        var graphicsRunner = new GraphicsRunner();
+        var maze = new Maze(18, 18);
+        var player = new Player(new Triangle(), maze, graphicsRunner);
+        player.setPosition(0, 0, Orientation.FacingRight);
+        maze.addMazeElement(MazeElementsFactory.openDoorAsTarget(0, 1));
+        return new Challenge(maze, player);
     }
 
     public static Challenge constructChallenge4() {

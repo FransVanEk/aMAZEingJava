@@ -1,7 +1,5 @@
 package nl.novi.amazeing.graphics;
 
-import nl.novi.amazeing.helpers.DrawHelper;
-
 import java.awt.*;
 
 public class PlusSign implements Drawable {
@@ -29,7 +27,7 @@ public class PlusSign implements Drawable {
                 {armLength / 2, thickness / 2},
                 {-armLength / 2, thickness / 2}
         };
-        return applyRotationAndOffset(horizontalArm, angle, x, y);
+        return applyRotationAndOffset(horizontalArm,  x, y, angle);
     }
 
     private int[][] createVerticalArm(int armLength, int thickness, int angle, int x, int y) {
