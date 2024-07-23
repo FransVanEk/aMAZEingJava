@@ -2,41 +2,34 @@ package nl.novi.amazeing;
 
 
 import nl.novi.amazeing.factories.ChallengeFactory;
-import nl.novi.amazeing.graphics.GraphicsRunner;
-import nl.novi.amazeing.graphics.SadFace;
-import nl.novi.amazeing.models.Player;
-import nl.novi.amazeing.navigators.BreadthFirstSearchNavigator;
-import nl.novi.amazeing.navigators.RandomizedSearchNavigator;
+import nl.novi.amazeing.graphics.Cross;
+
+import java.awt.*;
 
 public class AMAZEingApp {
 
     public static void main(String[] args) {
-        var challenge = ChallengeFactory.constructChallenge1();
+        var challenge = ChallengeFactory.constructChallenge2_1();
         var player = challenge.player();
-        player.setSpeed(10);
+        player.setSpeed(5);
         player.showMaze();
         player.moveForward();
         player.moveForward();
+        player.moveForward();
+        player.moveForward();
         player.turnRight();
+        player.moveForward();
+        player.moveForward();
         player.moveForward();
         player.turnLeft();
         player.moveForward();
         player.turnRight();
         player.moveForward();
-        player.turnLeft();
-        player.turnRight();
-        player.turnLeft();
         player.moveForward();
         player.turnRight();
         player.moveForward();
         player.moveForward();
         player.turnRight();
-        player.moveForward();
-        player.moveForward();
-        player.moveForward();
-        player.moveForward();
-        player.turnRight();
-        player.moveForward();
         player.moveForward();
         player.turnRight();
         player.moveForward();

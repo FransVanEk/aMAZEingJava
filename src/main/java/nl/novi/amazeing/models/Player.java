@@ -20,7 +20,7 @@ public class Player {
     MazePosition mazePosition;
     private Drawable graphicsPlayer;
     private Navigator internalNavigator;
-    private String name = "not set";
+    private String name = "<Name is not set, use the setName method>";
     public Player(Drawable shape, Maze maze, GraphicsRunner graphicsRunner) {
         this.graphicsPlayer = shape;
         this.maze = maze;
@@ -58,28 +58,28 @@ public class Player {
     private void MakeStepInCurrentOrientation(int stepSize) {
         var currentPosition = mazePosition.copy();
         var newPosition = mazePosition.MakeStepInCurrentOrientation(stepSize);
-        updateGraphics(currentPosition, newPosition);
+        animateMovement(currentPosition, newPosition);
     }
 
-    private void updateGraphics(MazePosition currentPosition, MazePosition newPosition) {
+    private void animateMovement(MazePosition currentPosition, MazePosition newPosition) {
         graphicsRunner.performMove(maze, graphicsPlayer, currentPosition, newPosition);
     }
 
     public void turnLeft() {
         var currentPosition = mazePosition.copy();
         var newPosition = mazePosition.turnLeft();
-        updateGraphics(currentPosition, newPosition);
+        animateMovement(currentPosition, newPosition);
     }
 
     public void turnRight() {
         var currentPosition = mazePosition.copy();
         var newPosition = mazePosition.turnRight();
-        updateGraphics(currentPosition, newPosition);
+        animateMovement(currentPosition, newPosition);
     }
 
     public void showMaze() {
         System.out.println("Good luck, " + name);
-        updateGraphics(mazePosition, mazePosition);
+        animateMovement(mazePosition, mazePosition);
     }
 
     public boolean canMoveForward() {
@@ -168,8 +168,8 @@ public class Player {
         return name;
     }
 
-    public void setName(String spelerNaam) {
-        this.name = spelerNaam;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public boolean isOnTarget() {

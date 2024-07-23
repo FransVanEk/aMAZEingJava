@@ -14,6 +14,7 @@ Maak een doolhof waarbij de breedte altijd twee keer de hoogte is, en voeg een v
    - Voeg in de `main`-methode variabelen toe om de naam van de speler en de grootte van het doolhof te definiëren.
    - Zorg ervoor dat de breedte altijd twee keer de hoogte is.
    - Gebruik **`int`** als gegevenstype voor de breedte en hoogte, en **`String`** voor de naam van de speler.
+   - Voeg ook de regel `player.setName(spelerNaam);` toe op de juiste plek om te zorgen dat de player jou naam krijgt.
 
 <details>
   <summary>Klik hier om de Uitwerking van Opdracht 1.1 te zien</summary>
@@ -29,7 +30,7 @@ Maak een doolhof waarbij de breedte altijd twee keer de hoogte is, en voeg een v
           String spelerNaam = "JouwNaam";
 
           // Maak de uitdaging aan met variabelen
-          var challenge = ChallengeFactory.Les_1_Opdracht_1_1(horizontaalAantal, verticaalAantal);
+          var challenge = ChallengeFactory.les1Opdracht1_1(horizontaalAantal, verticaalAantal);
           var player = challenge.player();
           
           // Zet de naam van de speler
@@ -54,7 +55,7 @@ Maak een doolhof waarbij de breedte altijd twee keer de hoogte is, en voeg een v
       - Vul je eigen naam in in plaats van `"JouwNaam"`.
 
 2. **Gebruik van Variabelen in Methodeaanroepen:**
-   - In de aanroep **`ChallengeFactory.Les_1_Opdracht_1_1(horizontaalAantal, verticaalAantal);`** gebruiken we de variabelen om het doolhof aan te maken.
+   - In de aanroep **`ChallengeFactory.les1Opdracht1_1(horizontaalAantal, verticaalAantal);`** gebruiken we de variabelen om het doolhof aan te maken.
    - Met **`player.setName(spelerNaam);`** stellen we de naam van de speler in.
 
 3. **Doolhof Weergeven:**

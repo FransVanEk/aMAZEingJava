@@ -26,7 +26,7 @@ Maak een doolhof van 2 bij 2, geef de speler een naam, en laat de speler een ron
         - Vul je eigen naam in in plaats van `"JouwNaam"`.
 
 3. **Gebruik van Variabelen in Methodeaanroepen:**
-    - In de aanroep **`ChallengeFactory.Les_1_Opdracht_1(horizontaalAantal, verticaalAantal);`** gebruiken we de variabelen om het doolhof aan te maken.
+    - In de aanroep **`ChallengeFactory.les1Opdracht1(horizontaalAantal, verticaalAantal);`** gebruiken we de variabelen om het doolhof aan te maken.
     - Met **`player.setName(spelerNaam);`** stellen we de naam van de speler in.
     - Met **`player.followInstructions(instructies);`** laat je de speler de gegeven instructies volgen.
 
@@ -60,7 +60,7 @@ Maak een doolhof van 2 bij 2, geef de speler een naam, en laat de speler een ron
           String spelerNaam = "JouwNaam";
 
           // Maak de uitdaging aan met variabelen
-          var challenge = ChallengeFactory.Les_1_Opdracht_1_1(horizontaalAantal, verticaalAantal);
+          var challenge = ChallengeFactory.les1Opdracht1_1(horizontaalAantal, verticaalAantal);
           var player = challenge.player();
           
           // Zet de naam van de speler

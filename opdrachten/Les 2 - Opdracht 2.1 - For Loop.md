@@ -26,12 +26,14 @@ Maak een doolhof van 4 bij 4, geef de speler een naam, en laat de speler de rand
       - Vul je eigen naam in in plaats van `"JouwNaam"`.
 
 3. **Gebruik van Variabelen in Methodeaanroepen:**
-   - In de aanroep **`ChallengeFactory.Les_1_Opdracht_1(horizontaalAantal, verticaalAantal);`** gebruiken we de variabelen om het doolhof aan te maken.
+   - In de aanroep **`ChallengeFactory.les1Opdracht1(horizontaalAantal, verticaalAantal);`** gebruiken we de variabelen om het doolhof aan te maken.
    - Met **`player.setName(spelerNaam);`** stellen we de naam van de speler in.
    - Gebruik een for-loop om de speler de rand van het doolhof te laten volgen.
 
 4.**Instructies Opvolgen met een For Loop:**  
-     Gebruik een for-loop om de speler een rechthoekige route te laten volgen langs de randen van het doolhof.
+   - Gebruik een for-loop om de speler een rechthoekige route te laten volgen langs de randen van het doolhof.
+   - je kunt de speler naar voren laten lopen door `player.moveForward();` aan te roepen. met `player.turnRight();` kun je hem laten draaien.
+
 
 <details>
   <summary>Klik hier om de Uitwerking van Opdracht 2.1 te zien</summary>
@@ -39,32 +41,32 @@ Maak een doolhof van 4 bij 4, geef de speler een naam, en laat de speler de rand
   ```java
   package nl.novi.amazeing;
 
-  import nl.novi.amazeing.factories.ChallengeFactory;
-  
-  public class AMAZEingApp {
+import nl.novi.amazeing.factories.ChallengeFactory;
 
-      public static void main(String[] args) {
-          int horizontaalAantal = 4;
-          int verticaalAantal = 4;
+public class AMAZEingApp {
 
-          String spelerNaam = "jouw naam";
+    public static void main(String[] args) {
+        int horizontaalAantal = 4;
+        int verticaalAantal = 4;
 
-          var challenge = ChallengeFactory.Les_1_Opdracht_1(horizontaalAantal, verticaalAantal);
-          var player = challenge.player();
-          player.setSpeed(10);
-          // Zet de naam van de speler
-          player.setName(spelerNaam);
-          player.showMaze();
+        String spelerNaam = "jouw naam";
 
-          // Gebruik een for-loop om de rand van het doolhof te volgen
-          for (int sides = 0; sides < 4; sides++) {
-              for (int i = 0; i < 3; i++) {
-                  player.moveForward();
-              }
-              player.turnRight();
-          }
-      }
-  }
+        var challenge = ChallengeFactory.les1Opdracht1(horizontaalAantal, verticaalAantal);
+        var player = challenge.player();
+        player.setSpeed(10);
+        // Zet de naam van de speler
+        player.setName(spelerNaam);
+        player.showMaze();
+
+        // Gebruik een for-loop om de rand van het doolhof te volgen
+        for (int sides = 0; sides < 4; sides++) {
+            for (int i = 0; i < 3; i++) {
+                player.moveForward();
+            }
+            player.turnRight();
+        }
+    }
+}
   ```
 
 </details>
@@ -105,32 +107,32 @@ Pas de for-loop aan zodat de speler de grootte van het doolhof herkent en correc
   ```java
   package nl.novi.amazeing;
 
-  import nl.novi.amazeing.factories.ChallengeFactory;
-  
-  public class AMAZEingApp {
+import nl.novi.amazeing.factories.ChallengeFactory;
 
-      public static void main(String[] args) {
-          int horizontaalAantal = 4; // Pas deze waarde aan om de grootte van het doolhof te wijzigen
-          int verticaalAantal = 4;
+public class AMAZEingApp {
 
-          String spelerNaam = "jouw naam";
+    public static void main(String[] args) {
+        int horizontaalAantal = 4; // Pas deze waarde aan om de grootte van het doolhof te wijzigen
+        int verticaalAantal = 4;
 
-          var challenge = ChallengeFactory.Les_1_Opdracht_1(horizontaalAantal, verticaalAantal);
-          var player = challenge.player();
-          player.setSpeed(10);
-          // Zet de naam van de speler
-          player.setName(spelerNaam);
-          player.showMaze();
+        String spelerNaam = "jouw naam";
 
-          // Gebruik een for-loop om de rand van het doolhof te volgen, aangepast aan de grootte van het doolhof
-          for (int sides = 0; sides < 4; sides++) {
-              for (int i = 0; i < horizontaalAantal - 1; i++) {
-                  player.moveForward();
-              }
-              player.turnRight();
-          }
-      }
-  }
+        var challenge = ChallengeFactory.les1Opdracht1(horizontaalAantal, verticaalAantal);
+        var player = challenge.player();
+        player.setSpeed(10);
+        // Zet de naam van de speler
+        player.setName(spelerNaam);
+        player.showMaze();
+
+        // Gebruik een for-loop om de rand van het doolhof te volgen, aangepast aan de grootte van het doolhof
+        for (int sides = 0; sides < 4; sides++) {
+            for (int i = 0; i < horizontaalAantal - 1; i++) {
+                player.moveForward();
+            }
+            player.turnRight();
+        }
+    }
+}
   ```
 
 </details>

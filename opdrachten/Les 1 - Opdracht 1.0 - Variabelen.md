@@ -4,19 +4,21 @@
 
 Hoewel je nog niet alle concepten van Java hebt geleerd, kun je al beginnen met programmeren. Soms heb je daarbij code nodig die je misschien nog niet volledig begrijpt. Dat is niet erg; we gaan die concepten later in detail behandelen. Voor nu is het belangrijk om te beginnen met het toepassen van wat je wel hebt geleerd. De code die je nu krijgt, wordt later duidelijk en verder uitgelegd.
 
-Puntnotatie is een manier om toegang te krijgen tot de eigenschappen (attributen) en methoden (functies) van een object in Java. Dit stelt je in staat om de onderdelen van een klasse te gebruiken. In deze opdracht zul je de puntnotatie toepassen om een doolhof te maken en aan te passen.
+Puntnotatie is een manier om toegang te krijgen tot de eigenschappen (attributen) en methoden (functies) van een object in Java. 
+Bijvoorbeeld: `challenge.player();` Hiermee krijg ke toegang tot de player in de challenge en kan je de player dingen laten doen.
+Punt notatie stelt je in staat om de onderdelen van het programma te gebruiken. In deze opdracht zul je de puntnotatie toepassen om een doolhof te maken en aan te passen.
 
 Hieronder zie je hoe je een klasse aanmaakt en hoe je puntnotatie gebruikt om de eigenschappen en methoden van een object te benaderen:
 
 ```java
 public class Main {
     public static void main(String[] args) {
-        // Definieer variabelen voor doolhofmaten
+        // Definieer variabelen voor doolhof maten
         int horizontaalAantal = 5;
         int verticaalAantal = 8;
 
         // Maak de uitdaging aan met variabelen
-        var challenge = ChallengeFactory.Les_1_Opdracht_1_0(horizontaalAantal, verticaalAantal);
+        var challenge = ChallengeFactory.les1Opdracht1_0(horizontaalAantal, verticaalAantal);
         var player = challenge.player();
         player.showMaze();
     }
@@ -32,7 +34,12 @@ Maak een doolhof met de afmetingen 5 horizontaal en 8 verticaal. De opdracht gee
 
 ### Stappen:
 1. **Download de Repository**
-    - Clone de repository naar je lokale machine:
+
+-  download de zip:
+   - Klik op de groene "<>code" knop.
+   - Klik vervolgens op "Download zip"
+
+- Of clone de repository naar je lokale machine:
    ```bash
    git clone https://github.com/FransVanEk/aMAZEingJava.git
    ```
@@ -50,12 +57,12 @@ Maak een doolhof met de afmetingen 5 horizontaal en 8 verticaal. De opdracht gee
   ```java
  public class Main {
    public static void main(String[] args) {
-      // Definieer variabelen voor doolhofmaten
+      // Definieer variabelen voor doolhof maten
       int horizontaalAantal = 5;
       int verticaalAantal = 8;
 
       // Maak de uitdaging aan met variabelen
-      var challenge = ChallengeFactory.Les_1_Opdracht_1_0(horizontaalAantal, verticaalAantal);
+      var challenge = ChallengeFactory.les1Opdracht1_0(horizontaalAantal, verticaalAantal);
       var player = challenge.player();
       player.showMaze();
    }
@@ -71,7 +78,7 @@ Maak een doolhof met de afmetingen 5 horizontaal en 8 verticaal. De opdracht gee
         - Op dezelfde manier wordt de variabele `verticaalAantal` gedeclareerd en geïnitialiseerd met `8`.
 
 2. **Gebruik van Variabelen in een Methodeaanroep:**
-    - In de aanroep **`ChallengeFactory.Les_1_Opdracht_1_0(horizontaalAantal, verticaalAantal);`** gebruiken we de variabelen om het doolhof aan te maken.
+    - In de aanroep **`ChallengeFactory.les1Opdracht1_0(horizontaalAantal, verticaalAantal);`** gebruiken we de variabelen om het doolhof aan te maken.
 
 3. **Doolhof weergeven:**
     - Met **`player.showMaze();`** geven we het gegenereerde doolhof weer.

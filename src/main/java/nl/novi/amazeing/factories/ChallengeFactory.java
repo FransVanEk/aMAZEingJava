@@ -1,7 +1,6 @@
 package nl.novi.amazeing.factories;
 
 import nl.novi.amazeing.graphics.GraphicsRunner;
-import nl.novi.amazeing.graphics.OpenDoor;
 import nl.novi.amazeing.graphics.Triangle;
 import nl.novi.amazeing.helpers.RandomHelpers;
 import nl.novi.amazeing.models.Maze;
@@ -116,7 +115,7 @@ public class ChallengeFactory {
         }
     }
 
-    public static Challenge Les_1_Opdracht_1(int horizontaalAantal, int verticaalAantal) {
+    public static Challenge les1Opdracht1(int horizontaalAantal, int verticaalAantal) {
         var graphicsRunner = new GraphicsRunner();
         var maze = new Maze(horizontaalAantal, verticaalAantal);
         var player = new Player(new Triangle(), maze, graphicsRunner);

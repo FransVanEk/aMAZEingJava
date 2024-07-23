@@ -24,6 +24,8 @@ Laat de speler door het doolhof bewegen totdat hij het doelpunt bereikt. De spel
     - In de aanroep **`ChallengeFactory.constructChallenge2_1();`** gebruiken we de variabelen om het doolhof aan te maken.
     - Met **`player.setName(spelerNaam);`** stellen we de naam van de speler in.
     - Gebruik een while-loop om de speler door het doolhof te laten bewegen totdat hij het doelpunt bereikt.
+    - `player.canMoveForward()` geeft een boolean terug om aan te geven of de player naar voren kan lopen. Deze methode kun je gebruiken om te testen tot hoever hij kan lopen.
+    - `player.isOnTarget()` geeft ook een boolean terug of de speler het doel heeft bereikt.
 
 5. **Instructies Opvolgen met een While Loop:**  
    Gebruik een while-loop om de speler te laten bewegen totdat hij het doelpunt bereikt.

@@ -4,6 +4,7 @@ import java.awt.*;
 
 public class Cross implements Drawable {
 
+    public static Color color = Color.red;
     private static final int FACTOR_BASE = 60;
     private static final int ARM_LENGTH = 40;
     private static final int THICKNESS = 10;
@@ -17,7 +18,7 @@ public class Cross implements Drawable {
         int[][] horizontalArm = createHorizontalArm(adjustedArmLength, adjustedThickness, position.x(), position.y());
         int[][] verticalArm = createVerticalArm(adjustedArmLength, adjustedThickness, position.x(), position.y());
 
-        g2d.setColor(Color.RED);
+        g2d.setColor(color);
         drawPolygon(g2d, horizontalArm);
         drawPolygon(g2d, verticalArm);
     }

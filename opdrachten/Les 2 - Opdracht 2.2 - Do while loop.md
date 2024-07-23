@@ -26,7 +26,7 @@ Maak een doolhof van 4 bij 4, geef de speler een naam, en laat de speler de rand
         - Vul je eigen naam in in plaats van `"JouwNaam"`.
 
 3. **Gebruik van Variabelen in Methodeaanroepen:**
-    - In de aanroep **`ChallengeFactory.Les_1_Opdracht_1(horizontaalAantal, verticaalAantal);`** gebruiken we de variabelen om het doolhof aan te maken.
+    - In de aanroep **`ChallengeFactory.les1Opdracht1(horizontaalAantal, verticaalAantal);`** gebruiken we de variabelen om het doolhof aan te maken.
     - Met **`player.setName(spelerNaam);`** stellen we de naam van de speler in.
     - Gebruik een do-while-loop om de speler de rand van het doolhof te laten volgen.
 
@@ -39,32 +39,32 @@ Maak een doolhof van 4 bij 4, geef de speler een naam, en laat de speler de rand
   ```java
   package nl.novi.amazeing;
 
-  import nl.novi.amazeing.factories.ChallengeFactory;
+import nl.novi.amazeing.factories.ChallengeFactory;
 
-  public class AMAZEingApp {
+public class AMAZEingApp {
 
-      public static void main(String[] args) {
-          int horizontaalAantal = 4;
-          int verticaalAantal = 4;
+    public static void main(String[] args) {
+        int horizontaalAantal = 4;
+        int verticaalAantal = 4;
 
-          String spelerNaam = "jouw naam";
+        String spelerNaam = "jouw naam";
 
-          var challenge = ChallengeFactory.Les_1_Opdracht_1(horizontaalAantal, verticaalAantal);
-          var player = challenge.player();
-          player.setSpeed(10);
-          // Zet de naam van de speler
-          player.setName(spelerNaam);
-          player.showMaze();
+        var challenge = ChallengeFactory.les1Opdracht1(horizontaalAantal, verticaalAantal);
+        var player = challenge.player();
+        player.setSpeed(10);
+        // Zet de naam van de speler
+        player.setName(spelerNaam);
+        player.showMaze();
 
-          // Gebruik een for-loop om de rand van het doolhof te volgen
-          for (int sides = 0; sides < 4; sides++) {
-              do {
-                  player.moveForward();
-              } while (player.canMoveForward());
-              player.turnRight();
-          }
-      }
-  }
+        // Gebruik een for-loop om de rand van het doolhof te volgen
+        for (int sides = 0; sides < 4; sides++) {
+            do {
+                player.moveForward();
+            } while (player.canMoveForward());
+            player.turnRight();
+        }
+    }
+}
   ```
 
 </details>
@@ -77,8 +77,6 @@ Maak een doolhof van 4 bij 4, geef de speler een naam, en laat de speler de rand
 - **Import van `Instruction`:** Zorg ervoor dat je de `Instruction`-klasse correct importeert.
 - **Gebruik van een Do-While Loop:** Maak gebruik van een do-while-loop om de instructies voor de speler te genereren.
 - **Aanmaken van de Speler:** Stel de naam van de speler in en roep `player.setName()` aan.
-
-Je hebt gelijk, de voorgestelde aanpak kan inderdaad efficiënter worden gemaakt met de while-loop zoals je aangaf. Hier is de bijgewerkte vervolgopdracht met die verandering:
 
 ## Vervolgopdracht Les 2: Variabele Loops (2.2)
 
@@ -108,32 +106,31 @@ Pas de do-while-loop aan zodat de speler de grootte van het doolhof herkent en c
   ```java
   package nl.novi.amazeing;
 
-  import nl.novi.amazeing.factories.ChallengeFactory;
-  import nl.novi.amazeing.navigators.Instruction;
+import nl.novi.amazeing.factories.ChallengeFactory;
 
-  public class AMAZEingApp {
+public class AMAZEingApp {
 
-      public static void main(String[] args) {
-          int horizontaalAantal = 5; // Pas deze waarde aan om de grootte van het doolhof te wijzigen
-          int verticaalAantal = 1;
+    public static void main(String[] args) {
+        int horizontaalAantal = 5; // Pas deze waarde aan om de grootte van het doolhof te wijzigen
+        int verticaalAantal = 1;
 
-          String spelerNaam = "jouw naam";
+        String spelerNaam = "jouw naam";
 
-          var challenge = ChallengeFactory.Les_1_Opdracht_1(horizontaalAantal, verticaalAantal);
-          var player = challenge.player();
-          player.setSpeed(10);
-          // Zet de naam van de speler
-          player.setName(spelerNaam);
-          player.showMaze();
+        var challenge = ChallengeFactory.les1Opdracht1(horizontaalAantal, verticaalAantal);
+        var player = challenge.player();
+        player.setSpeed(10);
+        // Zet de naam van de speler
+        player.setName(spelerNaam);
+        player.showMaze();
 
-          for (int sides = 0; sides < 4; sides++) {
-              while (player.canMoveForward()) {
-                  player.moveForward();
-              }
-              player.turnRight();
-          }
-      }
-  }
+        for (int sides = 0; sides < 4; sides++) {
+            while (player.canMoveForward()) {
+                player.moveForward();
+            }
+            player.turnRight();
+        }
+    }
+}
   ```
 
 </details>
