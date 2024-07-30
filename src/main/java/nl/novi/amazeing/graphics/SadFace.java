@@ -5,7 +5,7 @@ import java.awt.*;
 public class SadFace implements Drawable {
     private static final int FACTOR_BASE = 100;
     private static final int HEAD_RADIUS = 40;
-    private static final int EYE_RADIUS = 5;
+    private static final int EYE_RADIUS = 8;
     private static final int MOUTH_START_ANGLE = 0;
     private static final int MOUTH_EXTENT_ANGLE = 180;
 
@@ -31,11 +31,13 @@ public class SadFace implements Drawable {
         g2d.setColor(Color.BLACK);
         g2d.fillOval(leftEyeX - eyeRadius / 2, eyeY - eyeRadius / 2, eyeRadius, eyeRadius);
         g2d.fillOval(rightEyeX - eyeRadius / 2, eyeY - eyeRadius / 2, eyeRadius, eyeRadius);
-
+        var currentStroke = g2d.getStroke();
+        g2d.setStroke(new BasicStroke(eyeRadius/3));
         // Draw mouth
         g2d.setColor(Color.BLACK);
-        g2d.drawArc(headX + headRadius / 4, headY + 2 * headRadius / 3, headRadius / 2, headRadius / 4,
+        g2d.drawArc(headX + headRadius / 4,  headY + 2 * headRadius / 3, headRadius / 2, headRadius / 4,
                 MOUTH_START_ANGLE, MOUTH_EXTENT_ANGLE);
+        g2d.setStroke(currentStroke);
     }
 
     @Override

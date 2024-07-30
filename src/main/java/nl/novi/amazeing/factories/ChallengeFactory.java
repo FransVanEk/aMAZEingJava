@@ -86,7 +86,7 @@ public class ChallengeFactory {
         var maze = new Maze(size, size);
         var player = new Player(new Triangle(), maze, graphicsRunner);
         player.setPosition(0, 0, Orientation.FacingRight);
-        createRandomNoEntryItems((int) ((size * size) * 0.3), maze, player.getPosition());
+        createRandomNoEntryItems((int) ((size * size) * 0.4), maze, player.getPosition());
         placeTarget(maze, player.getPosition());
 
         return new Challenge(maze, player);

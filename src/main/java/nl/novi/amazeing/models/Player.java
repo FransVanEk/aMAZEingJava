@@ -2,6 +2,7 @@ package nl.novi.amazeing.models;
 
 import nl.novi.amazeing.graphics.Drawable;
 import nl.novi.amazeing.graphics.GraphicsRunner;
+import nl.novi.amazeing.graphics.SadFace;
 import nl.novi.amazeing.models.position.MazePosition;
 import nl.novi.amazeing.models.position.PositionMetaData;
 import nl.novi.amazeing.models.position.Orientation;
@@ -146,6 +147,9 @@ public class Player {
 
 
     public void followInstructions(List<Instruction> instructions) {
+
+        if(instructions.stream().count()==0) { changeAppearance(new SadFace());   }
+        animateMovement(mazePosition,mazePosition);
         for (Instruction action : instructions) {
             switch (action) {
                 case FORWARD -> moveForward();

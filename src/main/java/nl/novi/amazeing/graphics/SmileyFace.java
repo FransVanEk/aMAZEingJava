@@ -5,7 +5,7 @@ import java.awt.*;
 public class SmileyFace implements Drawable {
     private static final int FACTOR_BASE = 50;
     private static final int HEAD_RADIUS = 40;
-    private static final int EYE_RADIUS = 5;
+    private static final int EYE_RADIUS = 8;
     private static final int SMILE_START_ANGLE = 180;
     private static final int SMILE_EXTENT_ANGLE = 180;
 
@@ -34,8 +34,11 @@ public class SmileyFace implements Drawable {
 
         // Draw smile
         g2d.setColor(Color.BLACK);
-        g2d.drawArc(headX + headRadius / 4, headY + headRadius / 3, headRadius / 2, headRadius / 4,
+        var currentStroke = g2d.getStroke();
+        g2d.setStroke(new BasicStroke(eyeRadius/3));
+        g2d.drawArc( headX + headRadius / 4 , + eyeRadius + headY + headRadius / 3, headRadius / 2, headRadius / 4,
                 SMILE_START_ANGLE, SMILE_EXTENT_ANGLE);
+        g2d.setStroke(currentStroke);
     }
 
     @Override

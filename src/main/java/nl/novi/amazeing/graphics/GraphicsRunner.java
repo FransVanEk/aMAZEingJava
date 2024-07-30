@@ -29,7 +29,7 @@ public class GraphicsRunner extends JPanel implements KeyListener {
     }
 
     public void setSpeed(long speed) {
-        NUM_STEPS = 3 + (int)(100/speed);
+        NUM_STEPS = 5 + (int)(100/speed);
     }
 
     public void start() {
@@ -66,8 +66,8 @@ public class GraphicsRunner extends JPanel implements KeyListener {
     }
 
     private void onFrameResize(JFrame frame) {
-        frameWidth = frame.getWidth();
-        frameHeight = frame.getHeight() - 30;
+        frameWidth = (frame.getWidth());
+        frameHeight = (frame.getHeight()) - 30;
         if (maze != null) {
             updateMazeImage();
         }
