@@ -60,7 +60,7 @@ Maak een doolhof van 2 bij 2, geef de speler een naam, en laat de speler een ron
           String spelerNaam = "JouwNaam";
 
           // Maak de uitdaging aan met variabelen
-          var challenge = ChallengeFactory.les1Opdracht1_1(horizontaalAantal, verticaalAantal);
+          var challenge = ChallengeFactory.constructChallenge1(horizontaalAantal, verticaalAantal);
           var player = challenge.player();
           
           // Zet de naam van de speler

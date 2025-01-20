@@ -26,7 +26,7 @@ Maak een doolhof van 4 bij 4, geef de speler een naam, en laat de speler de rand
       - Vul je eigen naam in in plaats van `"JouwNaam"`.
 
 3. **Gebruik van Variabelen in Methodeaanroepen:**
-   - In de aanroep **`ChallengeFactory.les1Opdracht1(horizontaalAantal, verticaalAantal);`** gebruiken we de variabelen om het doolhof aan te maken.
+   - In de aanroep **`ChallengeFactory.constructChallenge1(horizontaalAantal, verticaalAantal);`** gebruiken we de variabelen om het doolhof aan te maken.
    - Met **`player.setName(spelerNaam);`** stellen we de naam van de speler in.
    - Gebruik een for-loop om de speler de rand van het doolhof te laten volgen.
 
@@ -51,7 +51,7 @@ public class AMAZEingApp {
 
         String spelerNaam = "jouw naam";
 
-        var challenge = ChallengeFactory.les1Opdracht1(horizontaalAantal, verticaalAantal);
+        var challenge = ChallengeFactory.constructChallenge1(horizontaalAantal, verticaalAantal);
         var player = challenge.player();
         player.setSpeed(10);
         // Zet de naam van de speler

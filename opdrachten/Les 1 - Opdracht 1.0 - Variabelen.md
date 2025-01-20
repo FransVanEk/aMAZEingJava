@@ -62,7 +62,7 @@ Maak een doolhof met de afmetingen 5 horizontaal en 8 verticaal. De opdracht gee
       int verticaalAantal = 8;
 
       // Maak de uitdaging aan met variabelen
-      var challenge = ChallengeFactory.les1Opdracht1_0(horizontaalAantal, verticaalAantal);
+      var challenge = ChallengeFactory.constructChallenge1(horizontaalAantal, verticaalAantal);
       var player = challenge.player();
       player.showMaze();
    }
@@ -78,7 +78,7 @@ Maak een doolhof met de afmetingen 5 horizontaal en 8 verticaal. De opdracht gee
         - Op dezelfde manier wordt de variabele `verticaalAantal` gedeclareerd en geïnitialiseerd met `8`.
 
 2. **Gebruik van Variabelen in een Methodeaanroep:**
-    - In de aanroep **`ChallengeFactory.les1Opdracht1_0(horizontaalAantal, verticaalAantal);`** gebruiken we de variabelen om het doolhof aan te maken.
+    - In de aanroep **`ChallengeFactory.constructChallenge1(horizontaalAantal, verticaalAantal);`** gebruiken we de variabelen om het doolhof aan te maken.
 
 3. **Doolhof weergeven:**
     - Met **`player.showMaze();`** geven we het gegenereerde doolhof weer.

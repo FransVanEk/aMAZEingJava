@@ -30,7 +30,7 @@ Maak een doolhof waarbij de breedte altijd twee keer de hoogte is, en voeg een v
           String spelerNaam = "JouwNaam";
 
           // Maak de uitdaging aan met variabelen
-          var challenge = ChallengeFactory.les1Opdracht1_1(horizontaalAantal, verticaalAantal);
+          var challenge = ChallengeFactory.constructChallenge1(horizontaalAantal, verticaalAantal);
           var player = challenge.player();
           
           // Zet de naam van de speler
@@ -55,7 +55,7 @@ Maak een doolhof waarbij de breedte altijd twee keer de hoogte is, en voeg een v
       - Vul je eigen naam in in plaats van `"JouwNaam"`.
 
 2. **Gebruik van Variabelen in Methodeaanroepen:**
-   - In de aanroep **`ChallengeFactory.les1Opdracht1_1(horizontaalAantal, verticaalAantal);`** gebruiken we de variabelen om het doolhof aan te maken.
+   - In de aanroep **`ChallengeFactory.constructChallenge1(horizontaalAantal, verticaalAantal);`** gebruiken we de variabelen om het doolhof aan te maken.
    - Met **`player.setName(spelerNaam);`** stellen we de naam van de speler in.
 
 3. **Doolhof Weergeven:**

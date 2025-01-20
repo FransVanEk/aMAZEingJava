@@ -49,7 +49,7 @@ public class AMAZEingApp {
 
         String spelerNaam = "jouw naam";
 
-        var challenge = ChallengeFactory.les1Opdracht1(horizontaalAantal, verticaalAantal);
+        var challenge = ChallengeFactory.constructChallenge1(horizontaalAantal, verticaalAantal);
         var player = challenge.player();
         player.setSpeed(10);
         // Zet de naam van de speler

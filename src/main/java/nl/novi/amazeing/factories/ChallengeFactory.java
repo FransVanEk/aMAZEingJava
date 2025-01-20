@@ -9,6 +9,14 @@ import nl.novi.amazeing.models.position.MazePosition;
 import nl.novi.amazeing.models.position.Orientation;
 
 public class ChallengeFactory {
+
+    public static Challenge constructChallenge1(int x, int y) {
+        var graphicsRunner = new GraphicsRunner();
+        var maze = new Maze(x, y);
+        var player = new Player(new Triangle(), maze, graphicsRunner);
+        player.setPosition(0, 0, Orientation.FacingRight).setSpeed(10);
+        return new Challenge(maze, player);
+    }
     public static Challenge constructChallenge1() {
         var graphicsRunner = new GraphicsRunner();
         var maze = new Maze(6, 6);
@@ -86,7 +94,7 @@ public class ChallengeFactory {
         var maze = new Maze(size, size);
         var player = new Player(new Triangle(), maze, graphicsRunner);
         player.setPosition(0, 0, Orientation.FacingRight);
-        createRandomNoEntryItems((int) ((size * size) * 0.4), maze, player.getPosition());
+        createRandomNoEntryItems((int) ((size * size) * 0.15), maze, player.getPosition());
         placeTarget(maze, player.getPosition());
 
         return new Challenge(maze, player);
@@ -115,7 +123,7 @@ public class ChallengeFactory {
         }
     }
 
-    public static Challenge les1Opdracht1(int horizontaalAantal, int verticaalAantal) {
+    public static Challenge lesOpdracht1(int horizontaalAantal, int verticaalAantal) {
         var graphicsRunner = new GraphicsRunner();
         var maze = new Maze(horizontaalAantal, verticaalAantal);
         var player = new Player(new Triangle(), maze, graphicsRunner);
