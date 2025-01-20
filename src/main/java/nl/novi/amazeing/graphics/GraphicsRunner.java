@@ -46,6 +46,7 @@ public class GraphicsRunner extends JPanel implements KeyListener {
         frame.setSize(bounds.width / 2, bounds.height);
         frame.setLocation(bounds.x, bounds.y);
         frame.add(this);
+        onFrameResize(frame);
         return frame;
     }
 

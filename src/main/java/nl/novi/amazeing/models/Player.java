@@ -102,7 +102,7 @@ public class Player {
      * @return true when player can move forward
      * and if there is no deadly element on the forward tile
      */
-    public boolean isSaveToMoveForward() {
+    public boolean isSafeToMoveForward() {
         Collection<PositionMetaData> effects = getEffectsForMovingForward();
         if (!maze.isAccessible(effects)) {
             return false;
@@ -110,7 +110,7 @@ public class Player {
         return isNotDeadly(effects);
     }
 
-    public boolean isSaveToMoveLeft() {
+    public boolean isSafeToMoveLeft() {
         Collection<PositionMetaData> effects = getEffectsForMovingLeft();
         if (!maze.isAccessible(effects)) {
             return false;
@@ -118,7 +118,7 @@ public class Player {
         return isNotDeadly(effects);
     }
 
-    public boolean isSaveToMoveRight() {
+    public boolean isSafeToMoveRight() {
         Collection<PositionMetaData> effects = getEffectsForMovingRight();
         if (!maze.isAccessible(effects)) {
             return false;
