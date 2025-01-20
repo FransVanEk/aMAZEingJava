@@ -18,7 +18,7 @@ public class Main {
         int verticaalAantal = 8;
 
         // Maak de uitdaging aan met variabelen
-        var challenge = ChallengeFactory.les1Opdracht1_0(horizontaalAantal, verticaalAantal);
+        var challenge = ChallengeFactory.constructChallenge1(horizontaalAantal, verticaalAantal);
         var player = challenge.player();
         player.showMaze();
     }
