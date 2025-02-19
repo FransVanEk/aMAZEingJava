@@ -22,6 +22,7 @@ public class Player {
     private Drawable graphicsPlayer;
     private Navigator internalNavigator;
     private String name = "<Name is not set, use the setName method>";
+
     public Player(Drawable shape, Maze maze, GraphicsRunner graphicsRunner) {
         this.graphicsPlayer = shape;
         this.maze = maze;
@@ -147,9 +148,12 @@ public class Player {
 
 
     public void followInstructions(List<Instruction> instructions) {
-
-        if(instructions.stream().count()==0) { changeAppearance(new SadFace());   }
-        animateMovement(mazePosition,mazePosition);
+        var stepCount = instructions.stream().count();
+        System.out.println("it is gonna take " + stepCount + " steps!");
+        if (instructions.stream().count() == 0) {
+            changeAppearance(new SadFace());
+        }
+        animateMovement(mazePosition, mazePosition);
         for (Instruction action : instructions) {
             switch (action) {
                 case FORWARD -> moveForward();
